@@ -40,8 +40,8 @@ export default StyleSheet.create({
         fontSize: 16
     },
     listContainer: {
-        marginTop: 20,
-        padding: 20,
+        padding: 10,
+        maxHeight: 300
     },
     entityContainer: {
         marginTop: 16,
@@ -52,5 +52,19 @@ export default StyleSheet.create({
     entityText: {
         fontSize: 20,
         color: '#333333'
+    },
+
+
+    testSwipe: {
+        color: "#788eec",
+        fontWeight: "bold",
+        fontSize: 30,
+        
+        
+    },
+    scrollView: {
+        padding: 30,
+        marginTop: -20,
+        marginBottom:20
     }
 })

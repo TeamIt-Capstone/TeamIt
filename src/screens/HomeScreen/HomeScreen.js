@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View, ScrollView } from 'react-native'
 import styles from './styles';
 import { firebase } from '../../firebase/config'
 
-export default function HomeScreen(props) {
+export default function HomeScreen(props, {navigation}) {
 
     const [entityText, setEntityText] = useState('')
     const [entities, setEntities] = useState([])
+    const {navigate} = props.navigation
 
     const entityRef = firebase.firestore().collection('entities')
     const userID = props.extraData.id
 
+
+    
+    const onFooterLinkPress = () => {
+        navigate('TestSwipe')
+    }
     useEffect(() => {
         entityRef
             .where("authorID", "==", userID)
@@ -66,7 +72,7 @@ export default function HomeScreen(props) {
             <View style={styles.formContainer}>
                 <TextInput
                     style={styles.input}
-                    placeholder='Add new entity'
+                    placeholder='Add new domain'
                     placeholderTextColor="#aaaaaa"
                     onChangeText={(text) => setEntityText(text)}
                     value={entityText}
@@ -77,6 +83,8 @@ export default function HomeScreen(props) {
                     <Text style={styles.buttonText}>Add</Text>
                 </TouchableOpacity>
             </View>
+      <ScrollView style={styles.scrollView}>
+            
             { entities && (
                 <View style={styles.listContainer}>
                     <FlatList
@@ -87,6 +95,12 @@ export default function HomeScreen(props) {
                     />
                 </View>
             )}
+            
+                  </ScrollView>  
+            <View >
+                    <Text > <Text style={styles.testSwipe} onPress={onFooterLinkPress} >page test swiping</Text></Text>
+                    </View>
+
         </View>
     )
 }
