@@ -1,9 +1,43 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import {FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import styles from './styles';
-import { firebase } from '../../firebase/config'
+import { firebase } from '../../services/firebase'
 
-export default function HomeScreen(props) {
+export default class HomeScreen extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            entityText: null,
+        }
+        this.onAddButtonPress = this.onAddButtonPress.bind(this);
+    }
+
+    onAddButtonPress = () => {
+        alert(this.state.entityText)
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <View style={styles.formContainer}>
+                    <TextInput
+                        style={styles.input}
+                        placeholder='Add new entity'
+                        placeholderTextColor="#aaaaaa"
+                        onChangeText={(text) => this.setState({entityText: text})}
+                        value={this.state.entityText}
+                        underlineColorAndroid="transparent"
+                        autoCapitalize="none"
+                    />
+                    <TouchableOpacity style={styles.button} onPress={this.onAddButtonPress}>
+                        <Text style={styles.buttonText}>Add</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        )
+    }
+}
+function oldHomeScreen(props) {
 
     const [entityText, setEntityText] = useState('')
     const [entities, setEntities] = useState([])
