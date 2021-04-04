@@ -15,7 +15,7 @@ const initialState = {
                 },
                 {
                     id:3,
-                    name: 'Gérarldine Lauzier',
+                    name: 'Géraldine Lauzier',
                     avatar_url: 'https://image.flaticon.com/icons/png/512/194/194938.png',
                     subtitle: 'Webdesigner'
                 },

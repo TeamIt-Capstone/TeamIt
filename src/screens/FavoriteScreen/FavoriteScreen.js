@@ -34,13 +34,13 @@ export default connect(mapStateToProps, actionCreators)
     
     goToProfile = (name) => {
        // this.props.navigation.navigate('Profile')
-        console.log("Go to " + name + "'s Profile")
+        alert("Go to " + name + "'s Profile")
 
     }
     
     unFav = (profile) => {
         profile.fav = !profile.fav
-        alert("You unFav " + profile.name)
+        alert("You remove " + profile.name + " from your favories")
 
         let newList = this.state.newList;
 
