@@ -15,8 +15,7 @@ export default class HomeScreen extends React.Component {
     }
 
     async onAddButtonPress() {
-        console.log(await this.db.getCollectionData());
-        // alert(this.state.entityText)
+        alert(this.state.entityText)
     }
 
     render() {
