@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import {FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { ListItem, Avatar, Icon } from 'react-native-elements'
+import { ListItem, Avatar, Badge } from 'react-native-elements'
 import TouchableScale from 'react-native-touchable-scale'
 import updateAction from '../../services/redux/actions/userActions'
 import {connect} from 'react-redux'
+import { BackgroundImage } from 'react-native-elements/dist/config'
 
 const actionCreators = {
     update: updateAction.update,
@@ -40,7 +41,7 @@ export default connect(mapStateToProps, actionCreators)
     
     unFav = (profile) => {
         profile.fav = !profile.fav
-        alert("You remove " + profile.name + " from your favories")
+       // alert("You remove " + profile.name + " from your favories")
 
         let newList = this.state.newList;
 
@@ -53,7 +54,7 @@ export default connect(mapStateToProps, actionCreators)
     
     addFav = (profile) => {
         profile.fav = !profile.fav
-        alert("You add " + profile.name + " to your favories")
+       // alert("You add " + profile.name + " to your favories")
 
         let newList = this.state.newList;
 
@@ -79,7 +80,14 @@ export default connect(mapStateToProps, actionCreators)
                             activeScale={0.9} 
                             onPress={() => this.goToProfile(l.name)}>
                             
-                            <Avatar source={{ uri: l.avatar_url }} />
+                         {(l.avatar_url !== '') ? (
+                             <Avatar rounded title={l.name[0]} source={{ uri: l.avatar_url }} />
+                         ) : (
+                             <Avatar rounded containerStyle={{ backgroundColor: 'grey' }} title={l.name[0]} />
+                         )}
+                         <Badge
+                                status={l.connected ? "success" : "warning"}
+                                containerStyle={{ position: 'absolute', top: 15, left: 45 }}/>
                             
                             <ListItem.Content>
                                 <ListItem.Title  style={{ color: 'black', fontWeight: 'bold' }}>{l.name}</ListItem.Title>
