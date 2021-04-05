@@ -1,10 +1,10 @@
 import { firebase } from '../../firebase'
 
-export default class auth {
+const auth = firebase.auth();
+
+export default class Auth {
     async signIn(email, password) {
-        return firebase
-            .auth()
-            .signInWithEmailAndPassword(email, password);
+        return auth.signInWithEmailAndPassword(email, password);
             // .then((response) => {
             //     const uid = response.user.uid
             //     const usersRef = firebase.firestore().collection('users')
@@ -29,9 +29,7 @@ export default class auth {
     }
 
     async register(email, password) {
-        return firebase
-            .auth()
-            .createUserWithEmailAndPassword(email, password);
+        return auth.createUserWithEmailAndPassword(email, password);
             // .then((response) => {
             //     const uid = response.user.uid
             //     const data = {

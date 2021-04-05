@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import {FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import styles from './styles';
 import { firebase } from '../../services/firebase'
+import Store from '../../services/firebase/store';
 
 export default class HomeScreen extends React.Component {
+    db = new Store('entities')
     constructor(props) {
         super(props);
         this.state = {
@@ -12,8 +14,9 @@ export default class HomeScreen extends React.Component {
         this.onAddButtonPress = this.onAddButtonPress.bind(this);
     }
 
-    onAddButtonPress = () => {
-        alert(this.state.entityText)
+    async onAddButtonPress() {
+        console.log(await this.db.getCollectionData());
+        // alert(this.state.entityText)
     }
 
     render() {
