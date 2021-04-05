@@ -29,6 +29,7 @@ export default connect(null, actionCreators)
                 <KeyboardAwareScrollView
                     style={{ flex: 1, width: '100%' }}
                     keyboardShouldPersistTaps="always">
+                    
                 </KeyboardAwareScrollView>
             </View>
         )

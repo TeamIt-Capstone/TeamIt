@@ -10,6 +10,7 @@ export default class HomeScreen extends React.Component {
             entityText: null,
         }
         this.onAddButtonPress = this.onAddButtonPress.bind(this);
+        this.onPricingBtnPress = this.onPricingBtnPress.bind(this);
     }
 
     onAddButtonPress = () => {
@@ -17,7 +18,7 @@ export default class HomeScreen extends React.Component {
     }
 
     
-    onPricingBtnPress () {
+    onPricingBtnPress  = () => {
         this.props.navigation.navigate('Pricing');
     }
 
@@ -25,7 +26,7 @@ export default class HomeScreen extends React.Component {
         return (
             <View style={styles.container}>
                 
-                    <TouchableOpacity style={styles.button} onPress={this.onPricingBtnPress()}>
+                    <TouchableOpacity style={styles.button} onPress={this.onPricingBtnPress}>
                         <Text style={styles.buttonText}>Pricing</Text>
                     </TouchableOpacity>
                 <View style={styles.formContainer}>
