@@ -16,9 +16,18 @@ export default class HomeScreen extends React.Component {
         alert(this.state.entityText)
     }
 
+    
+    onPricingBtnPress () {
+        this.props.navigation.navigate('Pricing');
+    }
+
     render() {
         return (
             <View style={styles.container}>
+                
+                    <TouchableOpacity style={styles.button} onPress={this.onPricingBtnPress()}>
+                        <Text style={styles.buttonText}>Pricing</Text>
+                    </TouchableOpacity>
                 <View style={styles.formContainer}>
                     <TextInput
                         style={styles.input}

@@ -1,6 +1,7 @@
 import HomeScreen from '../screens/HomeScreen/HomeScreen'
 import RegistrationScreen from '../screens/RegistrationScreen/RegistrationScreen'
 import LoginScreen from '../screens/LoginScreen/LoginScreen'
+import PricingScreen from '../screens/PricingScreen/PricingScreen'
 import React, {useState, useEffect} from 'react'
 import {firebase} from '../services/firebase'
 import { NavigationContainer } from '@react-navigation/native'
@@ -34,13 +35,17 @@ export default connect(mapStateToProps, actionCreators)
         <NavigationContainer>
         <Stack.Navigator>
             { props.auth.user && props.auth.user.user.uid ? (
-            <Stack.Screen name="Home">
-                {props => <HomeScreen {...props}/>}
-            </Stack.Screen>
+            <>
+                <Stack.Screen name="Home">
+                    {props => <HomeScreen {...props}/>}
+                </Stack.Screen>
+                <Stack.Screen name="Pricing" component={PricingScreen} />
+            </>
             ) : (
             <>
                 <Stack.Screen name="Login" component={LoginScreen} />
                 <Stack.Screen name="Registration" component={RegistrationScreen} />
+                <Stack.Screen name="Pricing" component={PricingScreen} />
             </>
             )}
         </Stack.Navigator>
