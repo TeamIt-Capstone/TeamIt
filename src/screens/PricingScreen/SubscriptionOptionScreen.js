@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
-import { Image,Icon, Text, Animated, TouchableOpacity, View } from 'react-native'
-import { Slider } from 'react-native-elements';
+import { Image,Icon, Text, ScrollView, TouchableOpacity, View } from 'react-native'
+import { Card } from 'react-native-elements';
 import styles from './styles';
-
-import { useLinkProps } from '@react-navigation/native';
-//import authAction from '../../services/redux/actions/authActions'
+import Highlight from './OptionsScreen/HighlightScreen';
 import {connect} from 'react-redux'
 
 const actionCreators = {
@@ -16,9 +14,9 @@ export default connect(null, actionCreators)
     constructor(props) {
         super(props);
         this.state = {
-            value: 0,
-            setValue: '',
-            prize: '',
+            subCategory:this.props.route.params.subCategory,
+            sub: this.props.route.params.sub,
+            userProjects:this.props.route.params.userProjects,
         }
         this.goToPayment = this.goToPayment.bind(this);
         this.valOnChange = this.valOnChange.bind(this);
@@ -54,40 +52,39 @@ export default connect(null, actionCreators)
         
             default:
                 break;
-        }
-               // this.setState({ value });
-        
+        } 
     }
+    
 
     render() {
         
-    let { value } = this.state
+        let { value } = this.state;
         return (
-            <View >
-                <Text>Subsciption Option</Text>
-                <Text>{"\n\n\n\n"}</Text>
+            <View>
+                
+                <Card containerStyle={{ height:700}}>
+                    <Card.Title style={{color:this.state.sub.theme_color}} h4>Choose your options</Card.Title>
+                    <Card.Divider />
+                    <ScrollView>
+                    {(this.state.subCategory == 'highlight') ? (
+
+                    <Highlight sub={this.state.sub} userProjects={ this.state.userProjects.profile.projects}/>
+                    ) : (
+                        <Text> {this.state.subCategory}</Text>
+                    )
+                    }
 
 
-                <View style={{ flex: 1, alignItems: 'stretch', justifyContent: 'center' }}>
-                    <Slider
-                        value={value}
-                        onValueChange={(value) => {this.setState({ value }),this.valOnChange(value)}}
-                        maximumValue={4}
-                        minimumValue={1}
-                        step={1}
-                        trackStyle={{ height: 20, backgroundColor: 'transparent' }}
-                        thumbStyle={{ height: 30, width: 30, backgroundColor: 'transparent' }} />
+
                     
-                    <Text>Subscription duration: {this.state.setValue} </Text>
-                    <Text>{"\n"}</Text>
-                    <Text>Amount you have to pay: {this.state.prize}</Text>
-                </View>
 
 
-                <Text>{"\n\n\n\n"}</Text>
-                <TouchableOpacity style={styles.button}  onPress={this.goToPayment}>
-                    <Text style={styles.buttonText}>Payment here, but go to Home for now XD</Text>
-                </TouchableOpacity>
+
+                        <TouchableOpacity style={styles.button}  onPress={this.goToPayment}>
+                            <Text style={styles.buttonText}>Payment here, but go to Home for now XD</Text>
+                        </TouchableOpacity>
+                    </ScrollView>
+                </Card>
             </View>
         )
     }

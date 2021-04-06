@@ -47,8 +47,8 @@ export default connect(mapStateToProps, actionCreators)
             </>
             ) : (
             <>
-                <Stack.Screen name="Login" component={LoginScreen} />
-                <Stack.Screen name="Registration" component={RegistrationScreen} />
+                {/* <Stack.Screen name="Login" component={LoginScreen} />
+                <Stack.Screen name="Registration" component={RegistrationScreen} /> */}
                 <Stack.Screen name="Pricing" component={PricingScreen} />
                 <Stack.Screen name="SubscriptionOption" component={SubscriptionOptionScreen} />
                 <Stack.Screen name="Favorite" component={FavoriteScreen} />
