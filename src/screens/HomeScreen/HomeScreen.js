@@ -12,15 +12,24 @@ export default class HomeScreen extends React.Component {
             entityText: null,
         }
         this.onAddButtonPress = this.onAddButtonPress.bind(this);
+        this.gotoFav = this.gotoFav.bind(this);
     }
 
     async onAddButtonPress() {
         alert(this.state.entityText)
     }
+    
+    gotoFav = () => {
+        this.props.navigation.navigate('Favorite')
+        
+    }
 
     render() {
         return (
             <View style={styles.container}>
+                    <TouchableOpacity style={styles.button} onPress={this.gotoFav}>
+                        <Text style={styles.buttonText}>Favorite</Text>
+                    </TouchableOpacity>
                 <View style={styles.formContainer}>
                     <TextInput
                         style={styles.input}
