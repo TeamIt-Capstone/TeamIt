@@ -19,7 +19,7 @@ export default class ProjectRepository extends Repository {
     }
 
     async getProjectProfileById(projectId) {
-        return await (this.getSinglerojectById(projectId)).profile
+        return await (this.getSingleProjectById(projectId)).profile
     }
 
     async getProfilePicByprojectId(projectId) {

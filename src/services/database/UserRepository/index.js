@@ -21,11 +21,15 @@ export default class UserRepository extends Repository {
     }
 
     async getUserProfileById(userId) {
-        return await (this.getSingleUserById(userId)).profile
+        return await (this.getSingleUserById(userId)).profile;
     }
 
     async getUserProjectsById(userId) {
-        return await (this.getUserProfileById(userId)).projects
+        return await (this.getUserProfileById(userId)).projects;
+    }
+
+    async getUserFavoritesById(userId) {
+        return (await this.getSingleUserById(userId)).favorites;
     }
 
     async getProfilePicByUserId(userId) {
