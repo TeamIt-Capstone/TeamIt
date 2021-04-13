@@ -1,7 +1,128 @@
 import userConstant from '../constants/userConstants'
 
 const initialState = {
-    favList: [{
+        subscriptions: 
+            {
+                package: [
+                    {
+                        type: 'Silver',
+                        theme_color:'#b3b3b3',
+                        title:'Silver',
+                        info:['Unlimited likes', '+ 3 more favorite sluts'],
+                        icon:'add-shopping-cart',
+                        prize:14.99,
+                        duration: {
+                            progressive:false,
+                            persistence:['month'],
+                        }
+                    },
+                    {
+                        type: 'Gold',
+                        theme_color:'#FFD700',
+                        title:'Gold',
+                        info:['Unlimited likes', '+ 5 more favorite slots', '+ Profile highlight', '+ 1 more project'],
+                        icon:'add-shopping-cart',
+                        prize:34.99,
+                        duration: {
+                            progressive:false,
+                            persistence:['month'],
+                        }
+                    },
+                    {
+                        type: 'Diamond',
+                        theme_color:'#b9f2ff',
+                        title:'Diamond',
+                        info:['Unlimited likes', '+ Unlimited favorite slots', '+ Profile highlight','+ 1 project highlight', '+ 2 more projects'],
+                        icon:'add-shopping-cart',
+                        prize:54.99,
+                        duration: {
+                            progressive:false,
+                            persistence:['month'],
+                        }
+                    },
+                ],
+                highlight: [{
+                        type: 'Profile highlight',
+                        theme_color:'#00cc00',
+                        title:'More visibility for your profile ?',
+                        info:['Don\'t wait any longer !', 'Let everyone see you !!!', 'Highlight your profile for: \na day / 3 days / a week / 3 weeks !'],
+                        icon:'visibility',
+                        prize:4.99,
+                        duration: {
+                            progressive:true,
+                            persistence:['a day','3 days', 'a week', '3 weeks'],
+                        }
+                    },
+                    {
+                        type: 'Project highlight',
+                        theme_color:'#e600ac',
+                        title:'More visibility for your project ?',
+                        info:['Highlight your project', 'Attract a maximum of profile NOW !!!','You can choose the duration of the highlight : \na day / 3 days / a week / 3 weeks !'],
+                        icon:'trending-up',
+                        prize:6.99,
+                        duration: {
+                            progressive:true,
+                            persistence:['a day','3 days', 'a week', '3 weeks'],
+                        }
+                    },
+                ],
+                extension: [{
+                        type: 'Project extension',
+                        theme_color:'#4f9deb',
+                        title:'More Projects ?',
+                        info:['No longer be limited in your ambitions', 'Get one more dedicated space to your new project !'],
+                        icon:'library-add',
+                        prize:12.99,
+                        duration: {
+                            progressive:false,
+                            persistence:['forever'],
+                        }
+                    },
+                    {
+                        type: 'Favorite extension',
+                        theme_color:'#ffcc00',
+                        title:'More Favories ?',
+                        info:['Safely keep more interesting profiles', 'Extend your favorites list with 3 new slots !'],
+                        icon:'star',
+                        prize:14.99,
+                        duration: {
+                            progressive:false,
+                            persistence:['forever'],
+                        }
+                    },
+                    {
+                        type: 'Like extension',
+                        theme_color:'#FF1E1E',
+                        title:'More likes ?',
+                        info:['Like more interesting profiles', 'Extend your like list with 3 new slots !', 'Increase your chances of having a match !'],
+                        icon:'favorite',
+                        prize:6.99,
+                        duration: {
+                            progressive:false,
+                            persistence:['forever'],
+                        }
+                    },
+                ]
+            },
+        userData: {
+            profile: {
+                projects: [
+                    'id_0',
+                    'id_1',
+                    'id_2',
+                    'id_3',
+                    'id_4',
+                    'id_5',
+                    'id_6',
+                    'id_7',
+                ],
+                domains: [
+                    'id_0',
+                    'id_1',
+                ],
+            }
+        },
+        favList: [{
                     id:1,
                     name: 'Jeannine Musk',
                     avatar_url: 'https://cdn1.iconfinder.com/data/icons/avatar-97/32/avatar-02-512.png',

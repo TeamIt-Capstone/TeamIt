@@ -12,6 +12,7 @@ export default class HomeScreen extends React.Component {
             entityText: null,
         }
         this.onAddButtonPress = this.onAddButtonPress.bind(this);
+        this.onPricingBtnPress = this.onPricingBtnPress.bind(this);
         this.gotoFav = this.gotoFav.bind(this);
     }
 
@@ -24,9 +25,18 @@ export default class HomeScreen extends React.Component {
         
     }
 
+    
+    onPricingBtnPress  = () => {
+        this.props.navigation.navigate('Pricing');
+    }
+
     render() {
         return (
             <View style={styles.container}>
+                
+                    <TouchableOpacity style={styles.button} onPress={this.onPricingBtnPress}>
+                        <Text style={styles.buttonText}>Pricing</Text>
+                    </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={this.gotoFav}>
                         <Text style={styles.buttonText}>Favorite</Text>
                     </TouchableOpacity>
