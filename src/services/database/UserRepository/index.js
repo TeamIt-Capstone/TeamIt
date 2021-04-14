@@ -1,6 +1,7 @@
+import firebase from 'firebase'
 import Storage from "../../firebase/storage"
 import Store from "../../firebase/store";
-import Repository from "../repository";
+import Repository from "../Repository";
 
 export default class UserRepository extends Repository {
     constructor() {
@@ -20,6 +21,14 @@ export default class UserRepository extends Repository {
         return this.db.users.getDocumentData(userId);
     }
 
+    async setSingleUserById(userId, data) {
+        return this.db.users.setDocument(userId, data);
+    }
+
+    async setSingleUserEncryptedById(userId, data) {
+        return this.db.encrypted_users.setDocument(userId, data);
+    }
+
     async getUserProfileById(userId) {
         return await (this.getSingleUserById(userId)).profile;
     }
@@ -36,5 +45,15 @@ export default class UserRepository extends Repository {
         const profilePicId = await (this.getUserProfileById(userId)).profilePicId;
 
         return this.storage.getDownloadUrl(`${userId}/${profilePicId}`);
+    }
+
+
+    async setConnectionStatusByUserId(userId, status) {
+        const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+        const data = {
+            isConnected: status,
+            last: timestamp,
+        }
+        return this.db.users.updateDocument(userId, {connection: data})
     }
 }

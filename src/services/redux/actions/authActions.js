@@ -58,10 +58,10 @@ function handleLogin(email, password) {
     }
 }
 
-function handleRegister(email, password) {
+function handleRegister(data) {
     return (dispatch, getState) => {
         dispatch(register.request);
-        firebase_auth.register(email, password).then(
+        firebase_auth.register(data).then(
             res => dispatch(register.success(res)),
             err => dispatch(register.failure(err))
         );

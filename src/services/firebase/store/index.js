@@ -50,23 +50,29 @@ export default class Store {
     }
 
     async getDocumentReference(documentId) {
-        const doc = (await this.getCollectionReference()).doc(documentId);
-        return doc;
+        const docReference = (await this.getCollectionReference()).doc(documentId);
+        return docReference;
     }
 
     async getDocumentData(documentId) {
-        const doc = (await this.getCollectionReference()).doc(documentId);
-        return doc.get();
+        const docReference = await this.getDocumentReference(documentId);
+        const docSnapshot = await docReference.get();
+        return docSnapshot.data();
+    }
+
+    async setDocument(documentId, data) {
+        const docReference = await this.getDocumentReference(documentId);
+        return docReference.set(data);
     }
 
     async updateDocument(documentId, data) {
-        const doc = (await this.getCollectionReference()).doc(documentId);
-        return doc.update(data);
+        const docReference = await this.getDocumentReference(documentId);
+        return docReference.update(data);
     }
 
     async removeDocument(documentId) {
-        const doc = (await this.getCollectionReference()).doc(documentId);
-        return doc.delete();
+        const docReference = await this.getDocumentReference(documentId);
+        return docReference.delete();
     }
 ////////////////
 //DOCUMENT END//
