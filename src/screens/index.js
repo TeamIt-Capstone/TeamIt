@@ -15,6 +15,7 @@ import {connect} from 'react-redux'
 import {View} from 'react-native'
 import Header from '../components/Header'
 import Profile from './ProfileScreen'
+import SwipeScreen from '../screens/SwipeScreen/SwipeScreen'
 
 const navigationOption = {
     header: (props) => <Header {...props}/>
@@ -45,9 +46,7 @@ export default connect(mapStateToProps, actionCreators)
             >
                 { props.auth.user && props.auth.user.user.uid ? (   
                 <>
-                    <Stack.Screen name="Home" options={navigationOption}>
-                        {props => <HomeScreen {...props}/>}
-                    </Stack.Screen>
+                    <Stack.Screen name="Home" component={SwipeScreen} options={navigationOption}/>
                     <Stack.Screen name="Pricing" component={PricingScreen} options={navigationOption}/>
                     <Stack.Screen name="SubscriptionOption" component={SubscriptionOptionScreen} options={navigationOption}/>
                     <Stack.Screen name="Favorite" component={FavoriteScreen} options={navigationOption}/>
