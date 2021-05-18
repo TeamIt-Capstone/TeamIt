@@ -12,6 +12,7 @@ if (!global.btoa) {  global.btoa = encode }
 if (!global.atob) { global.atob = decode }
 import authAction from '../services/redux/actions/authActions'
 import {connect} from 'react-redux'
+<<<<<<< HEAD
 import {View} from 'react-native'
 import Header from '../components/Header'
 import Profile from './ProfileScreen'
@@ -19,6 +20,9 @@ import Profile from './ProfileScreen'
 const navigationOption = {
     header: (props) => <Header {...props}/>
 }
+=======
+import SwipeScreen from '../screens/SwipeScreen/SwipeScreen'
+>>>>>>> Mohamed
 
 const Stack = createStackNavigator();
 
@@ -40,6 +44,7 @@ export default connect(mapStateToProps, actionCreators)
 
     return (
         <NavigationContainer>
+<<<<<<< HEAD
             <Stack.Navigator
                 headerMode="float"
             >
@@ -64,6 +69,18 @@ export default connect(mapStateToProps, actionCreators)
                 </>
                 )}
             </Stack.Navigator>
+=======
+        <Stack.Navigator>
+            { props.auth.user && props.auth.user.user.uid ? (
+            <Stack.Screen name="Home" component={ SwipeScreen } />
+            ) : (
+            <>
+                <Stack.Screen name="Login" component={LoginScreen} />
+                <Stack.Screen name="Registration" component={RegistrationScreen} />
+            </>
+            )}
+        </Stack.Navigator>
+>>>>>>> Mohamed
         </NavigationContainer>
     );
 })
