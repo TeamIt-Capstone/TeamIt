@@ -15,7 +15,8 @@ export default function Header({navigation, scene, insets}) {
             <Icon name='briefcase' type="feather" color={scene.route.name === "Home" ? "#2BD999" : "black"} onPress={() => navigation.navigate("Home")}/>
             <Icon name='star' type="feather" color={scene.route.name === "Favorite" ? "#2BD999" : "black"} onPress={() => navigation.navigate("Favorite")}/>
             <Icon name='message-circle' type="feather" color={scene.route.name === "Messages" ? "#2BD999" : "black"}/>
-            <Icon name='user' type="feather" color={scene.route.name === "Profile" ? "#2BD999" : "black"}/>
+            <Icon name='user' type="feather" color={scene.route.name === "Profile" ? "#2BD999" : "black"} onPress={() => navigation.navigate("Profile")}
+            />
         </View>
     );
 }

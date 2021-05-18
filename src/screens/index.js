@@ -4,7 +4,7 @@ import LoginScreen from '../screens/LoginScreen/LoginScreen'
 import PricingScreen from '../screens/PricingScreen/PricingScreen'
 import SubscriptionOptionScreen from '../screens/PricingScreen/SubscriptionOptionScreen'
 import FavoriteScreen from '../screens/FavoriteScreen/FavoriteScreen'
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, Profiler} from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import {decode, encode} from 'base-64'
@@ -14,6 +14,7 @@ import authAction from '../services/redux/actions/authActions'
 import {connect} from 'react-redux'
 import {View} from 'react-native'
 import Header from '../components/Header'
+import Profile from './ProfileScreen'
 
 const navigationOption = {
     header: (props) => <Header {...props}/>
@@ -50,6 +51,7 @@ export default connect(mapStateToProps, actionCreators)
                     <Stack.Screen name="Pricing" component={PricingScreen} options={navigationOption}/>
                     <Stack.Screen name="SubscriptionOption" component={SubscriptionOptionScreen} options={navigationOption}/>
                     <Stack.Screen name="Favorite" component={FavoriteScreen} options={navigationOption}/>
+                    <Stack.Screen name="Profile" component={Profile} options={navigationOption}/>
                 </>
                 ) : (
                 <>
@@ -58,6 +60,7 @@ export default connect(mapStateToProps, actionCreators)
                     <Stack.Screen name="Pricing" component={PricingScreen} />
                     <Stack.Screen name="SubscriptionOption" component={SubscriptionOptionScreen} />
                     <Stack.Screen name="Favorite" component={FavoriteScreen} />
+                    <Stack.Screen name="Profile" component={Profile}/>
                 </>
                 )}
             </Stack.Navigator>
