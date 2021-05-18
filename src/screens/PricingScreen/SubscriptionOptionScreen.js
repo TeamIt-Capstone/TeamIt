@@ -4,6 +4,7 @@ import { Card } from 'react-native-elements';
 import styles from './styles';
 import Highlight from './OptionsScreen/HighlightScreen';
 import Extension  from './OptionsScreen/ExtensionScreen';
+import Package  from './OptionsScreen/PackageScreen';
 import {connect} from 'react-redux'
 
 const actionCreators = {
@@ -45,7 +46,9 @@ export default connect(null, actionCreators)
                             <Highlight sub={this.state.sub} onChange={eventhandler} userProjects={ this.state.userProjects.profile.projects}/>
                         ) : ( (this.state.subCategory == 'extension') ?
                             (<Extension  sub={this.state.sub} onChange={eventhandler} userData={ this.state.userProjects.profile}/>
-                        ) : (null))
+                                ) : (
+                            <Package sub={this.state.sub} onChange={eventhandler} userProjects={ this.state.userProjects.profile.projects}/>
+                        ))
                     }
 
 
