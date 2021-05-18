@@ -35,22 +35,9 @@ export default class HomeScreen extends React.Component {
             <View style={styles.container}>
                 
                     <TouchableOpacity style={styles.button} onPress={this.onPricingBtnPress}>
-                        <Text style={styles.buttonText}>Pricing</Text>
+                        <Text style={styles.buttonText}>Button Pricing tmp</Text>
                     </TouchableOpacity>
-                <View style={styles.formContainer}>
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Add new entity'
-                        placeholderTextColor="#aaaaaa"
-                        onChangeText={(text) => this.setState({entityText: text})}
-                        value={this.state.entityText}
-                        underlineColorAndroid="transparent"
-                        autoCapitalize="none"
-                    />
-                    <TouchableOpacity style={styles.button} onPress={this.onAddButtonPress}>
-                        <Text style={styles.buttonText}>Add</Text>
-                    </TouchableOpacity>
-                </View>
+               
             </View>
         )
     }
