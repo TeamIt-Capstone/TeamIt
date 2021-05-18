@@ -5,7 +5,6 @@ import PricingScreen from '../screens/PricingScreen/PricingScreen'
 import SubscriptionOptionScreen from '../screens/PricingScreen/SubscriptionOptionScreen'
 import FavoriteScreen from '../screens/FavoriteScreen/FavoriteScreen'
 import React, {useState, useEffect} from 'react'
-import {firebase} from '../services/firebase'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import {decode, encode} from 'base-64'
@@ -35,26 +34,26 @@ export default connect(mapStateToProps, actionCreators)
 
     return (
         <NavigationContainer>
-        <Stack.Navigator>
-            { props.auth.user && props.auth.user.user.uid ? (   
-            <>
-                <Stack.Screen name="Home">
-                    {props => <HomeScreen {...props}/>}
-                </Stack.Screen>
-                <Stack.Screen name="Pricing" component={PricingScreen} />
-                <Stack.Screen name="SubscriptionOption" component={SubscriptionOptionScreen} />
-                <Stack.Screen name="Favorite" component={FavoriteScreen} />
-            </>
-            ) : (
-            <>
-                <Stack.Screen name="Login" component={LoginScreen} />
-                <Stack.Screen name="Registration" component={RegistrationScreen} />
-                <Stack.Screen name="Pricing" component={PricingScreen} />
-                <Stack.Screen name="SubscriptionOption" component={SubscriptionOptionScreen} />
-                <Stack.Screen name="Favorite" component={FavoriteScreen} />
-            </>
-            )}
-        </Stack.Navigator>
+            <Stack.Navigator>
+                { props.auth.user && props.auth.user.user.uid ? (   
+                <>
+                    <Stack.Screen name="Home">
+                        {props => <HomeScreen {...props}/>}
+                    </Stack.Screen>
+                    <Stack.Screen name="Pricing" component={PricingScreen} />
+                    <Stack.Screen name="SubscriptionOption" component={SubscriptionOptionScreen} />
+                    <Stack.Screen name="Favorite" component={FavoriteScreen} />
+                </>
+                ) : (
+                <>
+                    <Stack.Screen name="Login" component={LoginScreen} />
+                    <Stack.Screen name="Registration" component={RegistrationScreen} />
+                    <Stack.Screen name="Pricing" component={PricingScreen} />
+                    <Stack.Screen name="SubscriptionOption" component={SubscriptionOptionScreen} />
+                    <Stack.Screen name="Favorite" component={FavoriteScreen} />
+                </>
+                )}
+            </Stack.Navigator>
         </NavigationContainer>
     );
 })

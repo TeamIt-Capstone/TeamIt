@@ -13,6 +13,12 @@ const userDefaultDataStructure = {
         profilePic: null,
         projects: [],
         skills: [],
+    },
+    transaction: {
+        subscription: {
+            type: 0,
+            begin: null,
+        },
     }
 }
 
