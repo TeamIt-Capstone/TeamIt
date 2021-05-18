@@ -2,125 +2,93 @@ import React, { useEffect, useState } from 'react'
 import {FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import styles from './styles';
 import { firebase } from '../../services/firebase'
+import SwipeCards from "react-native-swipe-cards-deck";
 
 export default class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             entityText: null,
+            cards: []
         }
-        this.onAddButtonPress = this.onAddButtonPress.bind(this);
+//        this.cards = this.cardsSetter.bind(this);
+//        this.setCards = this.cardsSetter.bind(this);
+//        this.effect = this.effect.bind(this)
+//        this.onAddButtonPress = this.onAddButtonPress.bind(this);
+          this.cardsSetter = this.cardsSetter.bind(this);
+      }
+    cardsSetter(val) {
+      this.setState({
+        cards: val,
+
+      })
+      // return useState()
     }
 
-    onAddButtonPress = () => {
-        alert(this.state.entityText)
-    }
+    componentDidMount() {
+      this.cardsSetter(
+        [
+            { text: "Profil 1", backgroundColor: "red" },
+            { text: "Profil 2", backgroundColor: "purple" },
+            { text: "Profil 3", backgroundColor: "green" },
+            { text: "Profil 4", backgroundColor: "blue" },
+            { text: "Profil 5", backgroundColor: "cyan" },
+            { text: "Profil 6", backgroundColor: "orange" },
+        ]);
+    };
 
     render() {
         return (
-            <View style={styles.container}>
-                <View style={styles.formContainer}>
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Add new entity'
-                        placeholderTextColor="#aaaaaa"
-                        onChangeText={(text) => this.setState({entityText: text})}
-                        value={this.state.entityText}
-                        underlineColorAndroid="transparent"
-                        autoCapitalize="none"
-                    />
-                    <TouchableOpacity style={styles.button} onPress={this.onAddButtonPress}>
-                        <Text style={styles.buttonText}>Add</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
+        <View style={styles.container}>
+        {this.state.cards ? (
+          <SwipeCards
+            cards={this.state.cards}
+            renderCard={(cardData) => <Card data={cardData} />}
+            keyExtractor={(cardData) => String(cardData.text)}
+            renderNoMoreCards={() => <StatusCard text="No more profils..." />}
+            handleYup={handleYup}
+            handleNope={handleNope}
+            handleMaybe={handleMaybe}
+            hasMaybeAction={true}
+  
+            // If you want a stack of cards instead of one-per-one view, activate stack mode
+             stack={true}
+             stackDepth={3}
+          />
+        ) : (
+          <StatusCard text="Loading..." />
+        )}
+      </View> 
         )
     }
 }
-function oldHomeScreen(props) {
 
-    const [entityText, setEntityText] = useState('')
-    const [entities, setEntities] = useState([])
+function handleYup(card) {
+    console.log(`Yup for ${card.text}`);
+    return true; // return false if you wish to cancel the action
+}
 
-    const entityRef = firebase.firestore().collection('entities')
-    const userID = props.extraData.id
+function handleNope(card) {
+    console.log(`Nope for ${card.text}`);
+    return true;
+  }
+function handleMaybe(card)  {
+    console.log(`Maybe for ${card.text}`);
+    return true;
+  }
 
-    useEffect(() => {
-        entityRef
-            .where("authorID", "==", userID)
-            .orderBy('createdAt', 'desc')
-            .onSnapshot(
-                querySnapshot => {
-                    const newEntities = []
-                    querySnapshot.forEach(doc => {
-                        const entity = doc.data()
-                        entity.id = doc.id
-                        newEntities.push(entity)
-                    });
-                    setEntities(newEntities)
-                },
-                error => {
-                    console.log(error)
-                }
-            )
-    }, [])
-
-    const onAddButtonPress = () => {
-        if (entityText && entityText.length > 0) {
-            const timestamp = firebase.firestore.FieldValue.serverTimestamp();
-            const data = {
-                text: entityText,
-                authorID: userID,
-                createdAt: timestamp,
-            };
-            entityRef
-                .add(data)
-                .then(_doc => {
-                    setEntityText('')
-                    Keyboard.dismiss()
-                })
-                .catch((error) => {
-                    alert(error)
-                });
-        }
-    }
-
-    const renderEntity = ({item, index}) => {
-        return (
-            <View style={styles.entityContainer}>
-                <Text style={styles.entityText}>
-                    {index}. {item.text}
-                </Text>
-            </View>
-        )
-    }
-
+function Card({ data }) {
     return (
-        <View style={styles.container}>
-            <View style={styles.formContainer}>
-                <TextInput
-                    style={styles.input}
-                    placeholder='Add new entity'
-                    placeholderTextColor="#aaaaaa"
-                    onChangeText={(text) => setEntityText(text)}
-                    value={entityText}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                />
-                <TouchableOpacity style={styles.button} onPress={onAddButtonPress}>
-                    <Text style={styles.buttonText}>Add</Text>
-                </TouchableOpacity>
-            </View>
-            { entities && (
-                <View style={styles.listContainer}>
-                    <FlatList
-                        data={entities}
-                        renderItem={renderEntity}
-                        keyExtractor={(item) => item.id}
-                        removeClippedSubviews={true}
-                    />
-                </View>
-            )}
-        </View>
-    )
+      <View style={[styles.card, { backgroundColor: data.backgroundColor }]}>
+        <Text>{data.text}</Text>
+      </View>
+    );
+}
+
+function StatusCard({ text })  {
+    return (
+      <View>
+        <Text style={styles.cardsText}>{text}</Text>
+      </View>
+    );
 }

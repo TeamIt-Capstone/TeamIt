@@ -10,6 +10,7 @@ if (!global.btoa) {  global.btoa = encode }
 if (!global.atob) { global.atob = decode }
 import authAction from '../services/redux/actions/authActions'
 import {connect} from 'react-redux'
+import SwipeScreen from '../screens/SwipeScreen/SwipeScreen'
 
 const Stack = createStackNavigator();
 
@@ -34,9 +35,7 @@ export default connect(mapStateToProps, actionCreators)
         <NavigationContainer>
         <Stack.Navigator>
             { props.auth.user && props.auth.user.user.uid ? (
-            <Stack.Screen name="Home">
-                {props => <HomeScreen {...props}/>}
-            </Stack.Screen>
+            <Stack.Screen name="Home" component={ SwipeScreen } />
             ) : (
             <>
                 <Stack.Screen name="Login" component={LoginScreen} />
