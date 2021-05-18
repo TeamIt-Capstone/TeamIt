@@ -3,6 +3,7 @@ import { Image,Icon, Text, ScrollView, TouchableOpacity, View } from 'react-nati
 import { Card } from 'react-native-elements';
 import styles from './styles';
 import Highlight from './OptionsScreen/HighlightScreen';
+import Extension  from './OptionsScreen/ExtensionScreen';
 import {connect} from 'react-redux'
 
 const actionCreators = {
@@ -14,51 +15,24 @@ export default connect(null, actionCreators)
     constructor(props) {
         super(props);
         this.state = {
+            options:null,
             subCategory:this.props.route.params.subCategory,
             sub: this.props.route.params.sub,
             userProjects:this.props.route.params.userProjects,
         }
         this.goToPayment = this.goToPayment.bind(this);
-        this.valOnChange = this.valOnChange.bind(this);
     }
 
     goToPayment = () => {
-        alert("You choose the \"" + this.state.setValue + "\" subscription !\nYou have to pay "+ this.state.prize+ " !")
+        console.log(this.state.options)
+      //  alert("You choose the \"" + this.state.setValue + "\" subscription !\nYou have to pay "+ this.state.prize+ " !")
         this.props.navigation.navigate('Home');
         
     }
     
-    valOnChange = (val) => {
-        switch (val) {
-            case 1:
-                this.setState({ setValue: 'A day' });
-                this.setState({ prize: '$4.99' });
-                break;
-            case 2:
-                this.setState({ setValue: '3 days' });
-                this.setState({ prize: '$12.99' });
-                
-                break;
-            case 3:
-                this.setState({ setValue: 'A week' });
-                this.setState({ prize: '$28.99' });
-                
-                break;
-            case 4:
-                this.setState({ setValue: '3 weeks' });
-                this.setState({ prize: '$84.99' });
-                
-                break;
-        
-            default:
-                break;
-        } 
-    }
-    
 
     render() {
-        
-        let { value } = this.state;
+        const eventhandler = data =>  this.setState({options:data})
         return (
             <View>
                 
@@ -68,16 +42,11 @@ export default connect(null, actionCreators)
                     <ScrollView>
                     {(this.state.subCategory == 'highlight') ? (
 
-                    <Highlight sub={this.state.sub} userProjects={ this.state.userProjects.profile.projects}/>
-                    ) : (
-                        <Text> {this.state.subCategory}</Text>
-                    )
+                            <Highlight sub={this.state.sub} onChange={eventhandler} userProjects={ this.state.userProjects.profile.projects}/>
+                        ) : ( (this.state.subCategory == 'extension') ?
+                            (<Extension  sub={this.state.sub} onChange={eventhandler} userData={ this.state.userProjects.profile}/>
+                        ) : (null))
                     }
-
-
-
-                    
-
 
 
                         <TouchableOpacity style={styles.button}  onPress={this.goToPayment}>
