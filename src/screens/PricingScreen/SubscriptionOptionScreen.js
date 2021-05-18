@@ -19,40 +19,12 @@ export default connect(null, actionCreators)
             userProjects:this.props.route.params.userProjects,
         }
         this.goToPayment = this.goToPayment.bind(this);
-        this.valOnChange = this.valOnChange.bind(this);
     }
 
     goToPayment = () => {
-        alert("You choose the \"" + this.state.setValue + "\" subscription !\nYou have to pay "+ this.state.prize+ " !")
+      //  alert("You choose the \"" + this.state.setValue + "\" subscription !\nYou have to pay "+ this.state.prize+ " !")
         this.props.navigation.navigate('Home');
         
-    }
-    
-    valOnChange = (val) => {
-        switch (val) {
-            case 1:
-                this.setState({ setValue: 'A day' });
-                this.setState({ prize: '$4.99' });
-                break;
-            case 2:
-                this.setState({ setValue: '3 days' });
-                this.setState({ prize: '$12.99' });
-                
-                break;
-            case 3:
-                this.setState({ setValue: 'A week' });
-                this.setState({ prize: '$28.99' });
-                
-                break;
-            case 4:
-                this.setState({ setValue: '3 weeks' });
-                this.setState({ prize: '$84.99' });
-                
-                break;
-        
-            default:
-                break;
-        } 
     }
     
 
@@ -73,11 +45,6 @@ export default connect(null, actionCreators)
                         <Text> {this.state.subCategory}</Text>
                     )
                     }
-
-
-
-                    
-
 
 
                         <TouchableOpacity style={styles.button}  onPress={this.goToPayment}>

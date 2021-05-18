@@ -26,7 +26,7 @@ export default connect(mapStateToProps, actionCreators)
     }
 
     btnPrincingPress = (subType,  sub) => {
-        alert("You choose the \"" + subType + "\" subscription !")
+       // alert("You choose the \"" + subType + "\" subscription !")
         switch (subType) {
 
             case ("highlight"):
