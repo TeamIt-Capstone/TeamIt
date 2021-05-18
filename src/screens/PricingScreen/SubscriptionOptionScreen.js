@@ -3,6 +3,7 @@ import { Image,Icon, Text, ScrollView, TouchableOpacity, View } from 'react-nati
 import { Card } from 'react-native-elements';
 import styles from './styles';
 import Highlight from './OptionsScreen/HighlightScreen';
+import Extension  from './OptionsScreen/ExtensionScreen';
 import {connect} from 'react-redux'
 
 const actionCreators = {
@@ -14,6 +15,7 @@ export default connect(null, actionCreators)
     constructor(props) {
         super(props);
         this.state = {
+            options:null,
             subCategory:this.props.route.params.subCategory,
             sub: this.props.route.params.sub,
             userProjects:this.props.route.params.userProjects,
@@ -22,6 +24,7 @@ export default connect(null, actionCreators)
     }
 
     goToPayment = () => {
+        console.log(this.state.options)
       //  alert("You choose the \"" + this.state.setValue + "\" subscription !\nYou have to pay "+ this.state.prize+ " !")
         this.props.navigation.navigate('Home');
         
@@ -29,8 +32,7 @@ export default connect(null, actionCreators)
     
 
     render() {
-        
-        let { value } = this.state;
+        const eventhandler = data =>  this.setState({options:data})
         return (
             <View>
                 
@@ -40,10 +42,10 @@ export default connect(null, actionCreators)
                     <ScrollView>
                     {(this.state.subCategory == 'highlight') ? (
 
-                    <Highlight sub={this.state.sub} userProjects={ this.state.userProjects.profile.projects}/>
-                    ) : (
-                        <Text> {this.state.subCategory}</Text>
-                    )
+                            <Highlight sub={this.state.sub} onChange={eventhandler} userProjects={ this.state.userProjects.profile.projects}/>
+                        ) : ( (this.state.subCategory == 'extension') ?
+                            (<Extension  sub={this.state.sub} onChange={eventhandler} userData={ this.state.userProjects.profile}/>
+                        ) : (null))
                     }
 
 

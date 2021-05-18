@@ -9,8 +9,10 @@ class Highlight extends React.Component {
         super(props);
 
         this.state = {
+            type: this.props.sub.type,
             // for the slider
             value: 0,
+            projectChoosed: null,
 
             // get all project's id of the user and add the field checked for get the choice of the user
             allProjects: this.props.userProjects.slice().map((el) => {
@@ -27,20 +29,34 @@ class Highlight extends React.Component {
         }
     }
 
+    updateParent = () => {
+        if (this.props.onChange) {
+            let dataToSend = new Object();
+            dataToSend.type = this.state.type;
+            dataToSend.totalPrize = ((this.props.sub.prize * (this.state.value * 2 + 1)) * this.state.counter);
+            dataToSend.projectChoosed = this.state.projectChoosed;
+            dataToSend.duration = this.props.sub.duration.persistence[this.state.value]
+            this.props.onChange(dataToSend);
+        }
+    }
     checkThisBox = (itemID) => {
         // check or uncheck
         this.state.allProjects[itemID].checked = !this.state.allProjects[itemID].checked
+        let projectChoosed = []
 
         // count the total number of projects choosen
         this.state.counter = 0;
         this.state.allProjects.map((pr) => {
             if (pr.checked) {
+                projectChoosed.push(pr.id)
                 this.state.counter++;
             }
         })
 
         // save + update the prize
-        this.setState({ counter:this.state.counter, allProjects:this.state.allProjects, totalPrize:((this.props.sub.prize * (this.state.value*2 + 1))*this.state.counter) })
+        this.setState({ counter: this.state.counter, projectChoosed, allProjects: this.state.allProjects, totalPrize: ((this.props.sub.prize * (this.state.value * 2 + 1)) * this.state.counter) },this.updateParent())
+ 
+        
     }
 
 
@@ -58,7 +74,7 @@ class Highlight extends React.Component {
                             value={value}
 
                             // update the Slider and update the total prize
-                            onValueChange={(value) => { this.setState({ value, totalPrize:((this.props.sub.prize * (this.state.value*2 + 1))*this.state.counter) }) }}
+                            onValueChange={(value) => { this.setState({ value, totalPrize:((this.props.sub.prize * (this.state.value*2 + 1))*this.state.counter) },this.updateParent()) }}
                             maximumValue={this.props.sub.duration.persistence.length - 1}
                             minimumValue={0}
                             step={1}

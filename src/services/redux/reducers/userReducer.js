@@ -72,7 +72,7 @@ const initialState = {
                         title:'More Projects ?',
                         info:['No longer be limited in your ambitions', 'Get one more dedicated space to your new project !'],
                         icon:'library-add',
-                        prize:12.99,
+                        prize:10.99,
                         duration: {
                             progressive:false,
                             persistence:['forever'],
@@ -84,7 +84,7 @@ const initialState = {
                         title:'More Favories ?',
                         info:['Safely keep more interesting profiles', 'Extend your favorites list with 3 new slots !'],
                         icon:'star',
-                        prize:14.99,
+                        prize:8.99,
                         duration: {
                             progressive:false,
                             persistence:['forever'],
@@ -104,23 +104,34 @@ const initialState = {
                     },
                 ]
             },
-        userData: {
-            profile: {
-                projects: [
-                    'id_0',
-                    'id_1',
-                    'id_2',
-                    'id_3',
-                    'id_4',
-                    'id_5',
-                    'id_6',
-                    'id_7',
-                ],
-                domains: [
-                    'id_0',
-                    'id_1',
-                ],
-            }
+    userData: {
+        profile: {
+            subscriptions: {
+                extension:{
+                    fav_slots_max:3,
+                    project_slots_max:3,
+                    like_slots_max: 3,
+                },
+                highlight: {
+                    profile_duration:604800, //604800 seconds =  a week  
+                    project:0
+                },
+                package: {
+                    silver: false,
+                    gold: false,
+                    diamond:false
+                },
+            },
+            projects: [
+                'id_0',
+                'id_1',
+                'id_2',
+            ],
+            domains: [
+                'id_0',
+                'id_1',
+            ],
+        }
         },
         favList: [{
                     id:1,
