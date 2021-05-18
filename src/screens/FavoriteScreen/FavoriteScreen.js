@@ -1,46 +1,50 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import {FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { ListItem, Avatar, Icon } from 'react-native-elements'
+import { ListItem, Avatar, Badge } from 'react-native-elements'
 import TouchableScale from 'react-native-touchable-scale'
-import updateAction from '../../services/redux/actions/userActions'
+import userAction from '../../services/redux/actions/userActions'
 import {connect} from 'react-redux'
+import { BackgroundImage } from 'react-native-elements/dist/config'
 
 const actionCreators = {
-    update: updateAction.update,
+    update: userAction.handleUpdate,
+    downloadUser: userAction.handleDownloadUser,
 }
 
 function mapStateToProps(state) {
-    const {user} = state;
-    return {user};
+    const {user, auth} = state;
+    return {user, auth};
 }
 
 export default connect(mapStateToProps, actionCreators)
-
-
-
-    
 (class FavoriteScreen extends React.Component {
     
     constructor(props) {
         super(props);
         this.state = {
-            oldList: this.props.user.favList.slice(),
-            newList: this.props.user.favList,
+            oldList: (this.props.user.favorites) ? this.props.user.favorites.slice() : [],
+            newList: (this.props.user.favorites) ? this.props.user.favorites : [],
         }
         this.goToProfile = this.goToProfile.bind(this);
         this.unFav = this.unFav.bind(this);
         this.addFav = this.addFav.bind(this);
     }
+
+    componentDidMount() {
+        const uid = this.props.auth.user.user.uid;
+
+        this.props.downloadUser(uid);
+    }
     
-    goToProfile = (name) => {
+    goToProfile(name) {
        // this.props.navigation.navigate('Profile')
         alert("Go to " + name + "'s Profile")
 
     }
     
-    unFav = (profile) => {
+    unFav(profile) {
         profile.fav = !profile.fav
-        alert("You remove " + profile.name + " from your favories")
+       // alert("You remove " + profile.name + " from your favories")
 
         let newList = this.state.newList;
 
@@ -51,9 +55,9 @@ export default connect(mapStateToProps, actionCreators)
     }
 
     
-    addFav = (profile) => {
+    addFav(profile) {
         profile.fav = !profile.fav
-        alert("You add " + profile.name + " to your favories")
+       // alert("You add " + profile.name + " to your favories")
 
         let newList = this.state.newList;
 
@@ -68,7 +72,7 @@ export default connect(mapStateToProps, actionCreators)
     render() {
         return (
             <View>                
-                {/* {this.props.user.favList.map((l, i) => ( */}
+                {/* {this.props.user.favorites.map((l, i) => ( */}
                  {this.state.oldList.map((l, i) => (
                         <ListItem
                             key={i}
@@ -77,9 +81,16 @@ export default connect(mapStateToProps, actionCreators)
                             friction={900} 
                             tension={400} 
                             activeScale={0.9} 
-                            onPress={() => this.goToProfile(l.name)}>
+                            onPress={() => this.goToProfile(l.name)}>>
                             
-                            <Avatar source={{ uri: l.avatar_url }} />
+                         {(l.avatar_url !== '') ? (
+                             <Avatar rounded title={l.name[0]} source={{ uri: l.avatar_url }} />
+                         ) : (
+                             <Avatar rounded containerStyle={{ backgroundColor: 'grey' }} title={l.name[0]} />
+                         )}
+                         <Badge
+                                status={l.connected ? "success" : "warning"}
+                                containerStyle={{ position: 'absolute', top: 15, left: 45 }}/>
                             
                             <ListItem.Content>
                                 <ListItem.Title  style={{ color: 'black', fontWeight: 'bold' }}>{l.name}</ListItem.Title>

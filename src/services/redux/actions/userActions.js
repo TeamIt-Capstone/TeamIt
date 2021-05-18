@@ -1,35 +1,71 @@
 
-import updateConstant from "../constants/userConstants";
+import { updateConstant, downloadUserConstant } from "../constants/userConstants";
+import UserRepository from "../../database/UserRepository"
+
+const db = {
+    user: new UserRepository(),
+}
 
 const userAction = {
-    update,
+    handleUpdate,
+    handleDownloadUser,
 };
 
-const updateConst = {
+const update = {
     request: () => {
         return {
-            type: updateConstant.UPDATE_REQUEST,
+            type: updateConstant.REQUEST,
         }
     },
     success: (data) => {
         return {
-            type: updateConstant.UPDATE_SUCCESS,
+            type: updateConstant.SUCCESS,
             data
         }
     },
     failure: (error) => {
         return {
-            type: updateConstant.UPDATE_FAIL,
+            type: updateConstant.FAIL,
             error
         }
     }
 }
-function update(user) {
+function handleUpdate(user) {
     return (dispatch, getState) => {
-        dispatch(updateConst.request());
+        dispatch(update.request());
         
         console.log("update user: " + user?.profile?.username)
         // firebase -> update user
+    }
+}
+
+const downloadUser = {
+    request: () => {
+        return {
+            type: downloadUserConstant.REQUEST,
+        }
+    },
+    success: (data) => {
+        return {
+            type: downloadUserConstant.SUCCESS,
+            data
+        }
+    },
+    failure: (error) => {
+        return {
+            type: downloadUserConstant.FAIL,
+            error
+        }
+    }
+}
+
+function handleDownloadUser(uid) {
+    return (dispatch, getState) => {
+        dispatch(downloadUser.request());
+        db.user.getSingleUserById(uid).then(
+            res => dispatch(downloadUser.success(res)),
+            err => dispatch(downloadUser.failure(err))
+        )
     }
 }
 

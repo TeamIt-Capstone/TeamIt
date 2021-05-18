@@ -34,7 +34,12 @@ export default connect(null, actionCreators)
             alert("Passwords don't match.")
             return
         }
-        this.props.register(this.state.email, this.state.password);
+        const data = {
+            email: this.state.email,
+            password: this.state.password,
+            fullName: this.state.fullName
+        }
+        this.props.register(data);
     }
 
     

@@ -1,9 +1,18 @@
 const updateConstant = {
     // UPDATE CONSTANTS
-    UPDATE_REQUEST: 'UPDATE_REQUEST',
-    UPDATE_SUCCESS: 'UPDATE_SUCCESS',
-    UPDATE_FAIL: 'UPDATE_FAIL',
-
-
+    REQUEST: 'UPDATE_REQUEST',
+    SUCCESS: 'UPDATE_SUCCESS',
+    FAIL: 'UPDATE_FAIL'
 };
-export default updateConstant;
+
+const downloadUserConstant = {
+    REQUEST: 'DOWNLOAD_USER_REQUEST',
+    SUCCESS: 'DOWNLOAD_USER_SUCCESS',
+    FAIL: 'DOWNLOAD_USER_FAIL'
+}
+
+
+export {
+    updateConstant,
+    downloadUserConstant
+};
