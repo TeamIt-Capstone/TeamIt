@@ -28,10 +28,10 @@ export default StyleSheet.create({
         marginRight: 5
     },
     button: {
-        height: 47,
+        height: 147,
         borderRadius: 5,
         backgroundColor: '#788eec',
-        width: 80,
+        width: 180,
         alignItems: "center",
         justifyContent: 'center'
     },
