@@ -12,17 +12,14 @@ if (!global.btoa) {  global.btoa = encode }
 if (!global.atob) { global.atob = decode }
 import authAction from '../services/redux/actions/authActions'
 import {connect} from 'react-redux'
-<<<<<<< HEAD
 import {View} from 'react-native'
 import Header from '../components/Header'
 import Profile from './ProfileScreen'
+import SwipeScreen from '../screens/SwipeScreen/SwipeScreen'
 
 const navigationOption = {
     header: (props) => <Header {...props}/>
 }
-=======
-import SwipeScreen from '../screens/SwipeScreen/SwipeScreen'
->>>>>>> Mohamed
 
 const Stack = createStackNavigator();
 
@@ -44,15 +41,12 @@ export default connect(mapStateToProps, actionCreators)
 
     return (
         <NavigationContainer>
-<<<<<<< HEAD
             <Stack.Navigator
                 headerMode="float"
             >
                 { props.auth.user && props.auth.user.user.uid ? (   
                 <>
-                    <Stack.Screen name="Home" options={navigationOption}>
-                        {props => <HomeScreen {...props}/>}
-                    </Stack.Screen>
+                    <Stack.Screen name="Home" component={SwipeScreen} options={navigationOption}/>
                     <Stack.Screen name="Pricing" component={PricingScreen} options={navigationOption}/>
                     <Stack.Screen name="SubscriptionOption" component={SubscriptionOptionScreen} options={navigationOption}/>
                     <Stack.Screen name="Favorite" component={FavoriteScreen} options={navigationOption}/>
@@ -69,18 +63,6 @@ export default connect(mapStateToProps, actionCreators)
                 </>
                 )}
             </Stack.Navigator>
-=======
-        <Stack.Navigator>
-            { props.auth.user && props.auth.user.user.uid ? (
-            <Stack.Screen name="Home" component={ SwipeScreen } />
-            ) : (
-            <>
-                <Stack.Screen name="Login" component={LoginScreen} />
-                <Stack.Screen name="Registration" component={RegistrationScreen} />
-            </>
-            )}
-        </Stack.Navigator>
->>>>>>> Mohamed
         </NavigationContainer>
     );
 })
