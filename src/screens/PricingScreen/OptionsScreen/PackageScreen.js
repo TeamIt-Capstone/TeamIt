@@ -51,7 +51,7 @@ class PackageScreen extends React.Component {
                             checkedIcon='dot-circle-o'
                             uncheckedIcon='circle-o'
                             checkedColor={this.props.sub.theme_color}
-                            onPress= {() => this.setState({automaticSubscription:!this.state.automaticSubscription}, this.updateParent())}
+                            onPress= {() => {this.setState({automaticSubscription:!this.state.automaticSubscription}), this.updateParent()}}
                             checked= {this.state.automaticSubscription}
                         />
                         {(this.state.automaticSubscription) ? (
@@ -62,7 +62,7 @@ class PackageScreen extends React.Component {
                             checkedIcon='dot-circle-o'
                             uncheckedIcon='circle-o'
                             checkedColor={this.props.sub.theme_color}
-                            onPress= {() => this.setState({automaticPrelevement:!this.state.automaticPrelevement}, this.updateParent())}
+                            onPress= {() => {this.setState({automaticPrelevement:!this.state.automaticPrelevement}), this.updateParent()}}
                             checked= {this.state.automaticPrelevement}
                         />
                         ) : (null)}
