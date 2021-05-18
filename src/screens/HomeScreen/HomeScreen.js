@@ -34,9 +34,9 @@ export default class HomeScreen extends React.Component {
         return (
             <View style={styles.container}>
                 
-                    <TouchableOpacity style={styles.button} onPress={this.onPricingBtnPress}>
+                    {/* <TouchableOpacity style={styles.button} onPress={this.onPricingBtnPress}>
                         <Text style={styles.buttonText}>Button Pricing tmp</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                
             </View>
         )

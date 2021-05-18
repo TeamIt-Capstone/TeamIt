@@ -6,16 +6,29 @@ import {
   Image,
   TouchableOpacity
 } from 'react-native';
+import { Icon } from 'react-native-elements/dist/icons/Icon';
 
 export default class Profile extends Component {
 
+  
+  onPricingBtnPress  = () => {
+    this.props.navigation.navigate('Pricing');
+}
+
+//
   render() {
     return (
       <View style={styles.container}>
           <View style={styles.header}></View>
           <Image style={styles.avatar} source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
+              
+              <TouchableOpacity style={styles.buttonContainer2} onPress={this.onPricingBtnPress}>
+                        <Image style={styles.buttonText} source={{uri:"https://static.thenounproject.com/png/2090796-200.png"}}></Image>
+
+                    </TouchableOpacity>
           <View style={styles.body}>
             <View style={styles.bodyContent}>
+               
               <Text style={styles.name}>John Doe</Text>
               <Text style={styles.info}>UX Designer / Mobile developer</Text>
               <Text style={styles.description}>Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum electram expetendis, omittam deseruisse consequuntur ius an,</Text>
@@ -26,6 +39,7 @@ export default class Profile extends Component {
               <TouchableOpacity style={styles.buttonContainer}>
                 <Text>Tech 2</Text>
               </TouchableOpacity>
+
             </View>
         </View>
       </View>
@@ -89,6 +103,21 @@ const styles = StyleSheet.create({
     borderRadius:30,
     backgroundColor: "#00BFFF",
   },
+  buttonContainer2: {
+    margin:10,
+    height:50,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom:20,
+    width:50,
+    borderRadius:30,
+    backgroundColor: "#2BD999",
+  },
+  buttonText: {
+    width:30,
+    height:30
+  }
 });
 
                                             
