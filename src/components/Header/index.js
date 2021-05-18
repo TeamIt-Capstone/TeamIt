@@ -11,5 +11,5 @@ export default function Header(props) {
             <Icon name='rowing'/>
             <Icon name='rowing'/>
         </View>
-    )
+    );
 }

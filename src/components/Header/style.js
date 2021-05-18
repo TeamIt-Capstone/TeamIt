@@ -10,7 +10,7 @@ const style = {
 
     },
     disabled: {
-
+        
     },
 }
 
