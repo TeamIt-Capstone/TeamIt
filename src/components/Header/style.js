@@ -4,7 +4,7 @@ const style = {
         justifyContent: "space-between",
         paddingRight: 50,
         paddingLeft: 50,
-        marginTop: 50,
+        marginBottom: 7,
     },
     enabled: {
 

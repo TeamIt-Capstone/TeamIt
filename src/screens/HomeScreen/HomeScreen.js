@@ -37,9 +37,6 @@ export default class HomeScreen extends React.Component {
                     <TouchableOpacity style={styles.button} onPress={this.onPricingBtnPress}>
                         <Text style={styles.buttonText}>Pricing</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={this.gotoFav}>
-                        <Text style={styles.buttonText}>Favorite</Text>
-                    </TouchableOpacity>
                 <View style={styles.formContainer}>
                     <TextInput
                         style={styles.input}

@@ -25,7 +25,7 @@ export default connect(null, actionCreators)
     }
 
     onFooterLinkPress () {
-        navigation.navigate('Login');
+        this.props.navigation.navigate('Login');
     }
 
     onRegisterPress () {

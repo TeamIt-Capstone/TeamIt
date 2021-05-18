@@ -40,7 +40,7 @@ export default connect(mapStateToProps, actionCreators)
     return (
         <NavigationContainer>
             <Stack.Navigator
-                headerMode="screen"
+                headerMode="float"
             >
                 { props.auth.user && props.auth.user.user.uid ? (   
                 <>
