@@ -3,7 +3,7 @@ import { Image,Icon, Text, ScrollView, TouchableOpacity, View } from 'react-nati
 import { Card } from 'react-native-elements';
 import styles from './styles';
 import Highlight from './OptionsScreen/HighlightScreen';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
 
 const actionCreators = {
 }
@@ -24,7 +24,7 @@ export default connect(null, actionCreators)
 
     goToPayment = () => {
         alert("You choose the \"" + this.state.setValue + "\" subscription !\nYou have to pay "+ this.state.prize+ " !")
-        this.props.navigation.navigate('Home');
+        this.props.navigation.navigate('CardFormScreen');
         
     }
     
@@ -81,7 +81,7 @@ export default connect(null, actionCreators)
 
 
                         <TouchableOpacity style={styles.button}  onPress={this.goToPayment}>
-                            <Text style={styles.buttonText}>Payment here, but go to Home for now XD</Text>
+                            <Text style={styles.buttonText}>Payment here</Text>
                         </TouchableOpacity>
                     </ScrollView>
                 </Card>

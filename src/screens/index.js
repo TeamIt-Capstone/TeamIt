@@ -2,6 +2,7 @@ import HomeScreen from '../screens/HomeScreen/HomeScreen'
 import RegistrationScreen from '../screens/RegistrationScreen/RegistrationScreen'
 import LoginScreen from '../screens/LoginScreen/LoginScreen'
 import PricingScreen from '../screens/PricingScreen/PricingScreen'
+import CardFormScreen from '../screens/Payment/CardFormScreen'
 import SubscriptionOptionScreen from '../screens/PricingScreen/SubscriptionOptionScreen'
 import FavoriteScreen from '../screens/FavoriteScreen/FavoriteScreen'
 import React, {useState, useEffect} from 'react'
@@ -44,6 +45,7 @@ export default connect(mapStateToProps, actionCreators)
                 <Stack.Screen name="Pricing" component={PricingScreen} />
                 <Stack.Screen name="SubscriptionOption" component={SubscriptionOptionScreen} />
                 <Stack.Screen name="Favorite" component={FavoriteScreen} />
+                <Stack.Screen name="CardFormScreen" component={CardFormScreen} />
             </>
             ) : (
             <>
@@ -52,6 +54,7 @@ export default connect(mapStateToProps, actionCreators)
                 <Stack.Screen name="Pricing" component={PricingScreen} />
                 <Stack.Screen name="SubscriptionOption" component={SubscriptionOptionScreen} />
                 <Stack.Screen name="Favorite" component={FavoriteScreen} />
+                <Stack.Screen name="CardFormScreen" component={CardFormScreen} />
             </>
             )}
         </Stack.Navigator>
