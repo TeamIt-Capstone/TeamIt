@@ -47,6 +47,16 @@ export default class SwipeScreen extends React.Component {
         </View>
       );
     };
+    
+    renderYup() {
+      return (
+        <View
+          style={styles.item}
+        >
+          <Text style={styles.itemText}>get it boy</Text>
+        </View>
+      );
+    }
 
     Card({ data }) {
       var keyWords = [];
@@ -91,11 +101,11 @@ export default class SwipeScreen extends React.Component {
             handleYup={handleYup}
             handleNope={handleNope}
             handleMaybe={handleMaybe}
-            showYup={true}
-            showNope={true}
             hasMaybeAction={true}
-             stack={true}
-             stackDepth={3}
+            yupText={"Like"}
+            maybeText={"Favorite"}
+            stack={true}
+            stackDepth={3}
           />
         ) : (
           <StatusCard text="Loading..." />
@@ -103,6 +113,15 @@ export default class SwipeScreen extends React.Component {
       </View> 
         )
     }
+}
+
+function renderYup() {
+  console.log("test test test")
+  return (
+    <View>
+      <Text>get it boy</Text>
+    </View>
+  );
 }
 
 function handleYup(card) {
