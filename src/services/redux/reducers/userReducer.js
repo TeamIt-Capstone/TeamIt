@@ -1,7 +1,7 @@
 import userConstant from '../constants/userConstants'
 
 const initialState = {
-    projects: [
+    usersProjects: [
         { 
             projectName: "Project 1", 
             img: require("../../../assets/icon.png"), 
