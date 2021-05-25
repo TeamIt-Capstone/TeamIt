@@ -2,16 +2,30 @@ import React, { useEffect, useState } from 'react'
 import {Image, FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import styles from './styles';
 import { firebase } from '../../services/firebase'
+import updateAction from '../../services/redux/actions/userActions'
 import SwipeCards from "react-native-swipe-cards-deck";
 import { formatData } from '../../services/formdata/formdata';
+import {connect} from 'react-redux'
 
-export default class SwipeScreen extends React.Component {
+const actionCreators = {
+  update: updateAction.update,
+}
+
+function mapStateToProps(state) {
+  const {user} = state;
+  return {user};
+}
+
+export default connect(mapStateToProps, actionCreators)
+
+(class SwipeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             entityText: null,
             cards: [],
             numColumns: 5,
+//            projectsList: this.props.user.usersProjects
         }
         this.cardsSetter = this.cardsSetter.bind(this);
       }
@@ -24,6 +38,7 @@ export default class SwipeScreen extends React.Component {
     }
 
     componentDidMount() {
+      console.log(this.state.projectsList)
       this.cardsSetter(
         [
             { projectName: "Project 1", img: require("../../../assets/icon.png"), projectName: "project 1", domain: "tech 1", keyWords: [{ key: 'a1' }, { key: 'a2' }, { key: 'a3' }, { key: 'a4' },] },
@@ -113,7 +128,7 @@ export default class SwipeScreen extends React.Component {
       </View> 
         )
     }
-}
+})
 
 function renderYup() {
   console.log("test test test")
