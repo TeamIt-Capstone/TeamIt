@@ -21,15 +21,19 @@ export default connect(mapStateToProps, actionCreators)
 (class SwipeScreen extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            entityText: null,
-            cards: [],
-            numColumns: 5,
-//            projectsList: this.props.user.usersProjects
-        }
+        this.state;
         this.cardsSetter = this.cardsSetter.bind(this);
+        this.stateSetter = this.stateSetter.bind(this);
       }
     
+    stateSetter() { 
+      this.state = {
+        cards: [],
+        numColumns: 5,
+        projectsList: this.props.user.usersProjects,
+      }
+    }
+
     cardsSetter(val) {
       this.setState({
         cards: val,
@@ -38,7 +42,7 @@ export default connect(mapStateToProps, actionCreators)
     }
 
     componentDidMount() {
-      console.log(this.state.projectsList)
+      this.stateSetter()
       this.cardsSetter(
         [
             { projectName: "Project 1", img: require("../../../assets/icon.png"), projectName: "project 1", domain: "tech 1", keyWords: [{ key: 'a1' }, { key: 'a2' }, { key: 'a3' }, { key: 'a4' },] },
