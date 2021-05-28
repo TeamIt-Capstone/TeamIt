@@ -22,12 +22,27 @@ export default connect(mapStateToProps, actionCreators)
     constructor(props) {
         super(props);
         this.state = {
-            oldList: (this.props.user.favorites) ? this.props.user.favorites.slice() : [],
-            newList: (this.props.user.favorites) ? this.props.user.favorites : [],
+            oldList: (this.props.user.favorites) ? this.getUserFav().slice() : [],
+            newList: (this.props.user.favorites) ? this.getUserFav() : [],
         }
         this.goToProfile = this.goToProfile.bind(this);
         this.unFav = this.unFav.bind(this);
         this.addFav = this.addFav.bind(this);
+    }
+
+    getUserFav() {
+        let allFavs = []
+        this.props.user.favorites.forEach(fav => {
+            if (this.props.user.owner_uid){
+                allFavs.push(this.props.downloadProject(fav.uid))
+           } else {
+                allFavs.push(this.props.downloadUser(fav.uid))
+            }
+        });
+        
+        console.log('getUserFav:')
+        console.log(allFavs)
+        return allFavs
     }
 
     componentDidMount() {
