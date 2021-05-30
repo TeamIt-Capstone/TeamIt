@@ -35,6 +35,23 @@ export default connect(mapStateToProps, actionCreators)(
         this.handleYup = this.handleYup.bind(this);
         this.handleMaybe = this.handleMaybe.bind(this);
       }
+      
+      componentDidMount() {
+        const uid = this.props.auth.user.user.uid;
+        this.props.update();
+        this.props.downloadUser(uid);
+      };
+  
+      componentDidUpdate(prevProps, prevState) {
+        if (this.props !== prevProps) {
+          if (this.props.home.usersList && this.props.user.user) {
+            const uid = this.props.auth.user.user.uid;
+            const filteredProfiles = filterProfiles(this.props.home.usersList, this.props.user.user.seen, uid);
+            const formatedCardData = formateCardData(filteredProfiles);
+            this.cardsSetter(formatedCardData)
+          }
+        }
+      }
     
     cardsSetter(val) {
       this.setState({
@@ -65,22 +82,6 @@ export default connect(mapStateToProps, actionCreators)(
       return true;
     }
 
-    componentDidMount() {
-      const uid = this.props.auth.user.user.uid;
-      this.props.update();
-      this.props.downloadUser(uid);
-    };
-
-    componentDidUpdate(prevProps, prevState) {
-      if (this.props !== prevProps) {
-        if (this.props.home.usersList && this.props.user.user) {
-          const uid = this.props.auth.user.user.uid;
-          const filteredProfiles = filterProfiles(this.props.home.usersList, this.props.user.user.seen, uid);
-          const formatedCardData = formateCardData(filteredProfiles);
-          this.cardsSetter(formatedCardData)
-        }
-      }
-    }
 
     renderItem({ item, index }) {
       if (item.empty === true) {

@@ -5,14 +5,17 @@ import TouchableScale from 'react-native-touchable-scale'
 import userAction from '../../services/redux/actions/userActions'
 import {connect} from 'react-redux'
 import { BackgroundImage } from 'react-native-elements/dist/config'
+import homeActions from '../../services/redux/actions/homeActions'
+import {formateFavoriteData} from '../../services/formdata/formdata'
 
 const actionCreators = {
+    update: homeActions.handleUpdateUsersList,
     downloadUser: userAction.handleDownloadUser,
 }
 
 function mapStateToProps(state) {
-    const {user, auth} = state;
-    return {user, auth};
+    const {user, auth, home} = state;
+    return {user, auth, home};
 }
 
 export default connect(mapStateToProps, actionCreators)
@@ -21,8 +24,8 @@ export default connect(mapStateToProps, actionCreators)
     constructor(props) {
         super(props);
         this.state = {
-            oldList: (this.props.user.favorites) ? this.props.user.favorites.slice() : [],
-            newList: (this.props.user.favorites) ? this.props.user.favorites : [],
+            oldList: null,
+            newList: null,
         }
         this.goToProfile = this.goToProfile.bind(this);
         this.unFav = this.unFav.bind(this);
@@ -31,9 +34,25 @@ export default connect(mapStateToProps, actionCreators)
 
     componentDidMount() {
         const uid = this.props.auth.user.user.uid;
-
+        this.props.update();
         this.props.downloadUser(uid);
-    }
+      };
+  
+      componentDidUpdate(prevProps, prevState) {
+        if (this.props !== prevProps) {
+          if (this.props.home.usersList && this.props.user.user) {
+            const uid = this.props.auth.user.user.uid;
+            const formatedFavorites = formateFavoriteData(this.props.user.user.favorites, this.props.home.usersList);
+            console.log(formatedFavorites);
+            this.setState({
+                oldList: (this.props.user.user.favorites) ? formatedFavorites.slice() : []
+            });
+            this.setState({
+                newList: (this.props.user.user.favorites) ? formatedFavorites : []
+            });
+          }
+        }
+      }
     
     goToProfile(name) {
        // this.props.navigation.navigate('Profile')
@@ -72,7 +91,7 @@ export default connect(mapStateToProps, actionCreators)
         return (
             <View>                
                 {/* {this.props.user.favorites.map((l, i) => ( */}
-                 {this.state.oldList.map((l, i) => (
+                 {(this.state.oldList) ? this.state.oldList.map((l, i) => (
                         <ListItem
                             key={i}
                             topDivider
@@ -80,7 +99,7 @@ export default connect(mapStateToProps, actionCreators)
                             friction={900} 
                             tension={400} 
                             activeScale={0.9} 
-                            onPress={() => this.goToProfile(l.name)}>>
+                            onPress={() => this.goToProfile(l.name)}>
                             
                          {(l.avatar_url !== '') ? (
                              <Avatar rounded title={l.name[0]} source={{ uri: l.avatar_url }} />
@@ -99,7 +118,7 @@ export default connect(mapStateToProps, actionCreators)
                         <ListItem.Chevron name="star" color={ this.state.newList.find(profile => profile.id == l.id) ? "red" : "grey"} size={30} onPress={this.state.newList.find(profile => profile.id == l.id) ? () => this.unFav(l) : () => this.addFav(l)}/>
                         </ListItem>
                     ))
-                }
+                : null}
             </View>
         )
     }
