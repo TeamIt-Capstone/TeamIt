@@ -11,8 +11,8 @@ export default StyleSheet.create({
     card: {
       justifyContent: "center",
       alignItems: "center",
-      width: 250,
-      height: 400,
+      width: 300,
+      height: 480,
       borderWidth: 1,
       borderColor: '#d1d1d1',
       borderBottomLeftRadius: 10,
@@ -43,9 +43,10 @@ export default StyleSheet.create({
     projectname: {
       fontSize: 22,
       fontWeight: 'bold',
-      alignSelf: 'flex-start',
-      margin: 1,
       height: 100,
+      fontFamily: 'roboto',
+      color: '#3b4a5b',
+      left: 15,
     },
 
     projectdomain: {
@@ -55,12 +56,15 @@ export default StyleSheet.create({
       alignSelf: 'flex-end',
       margin: 3,
       bottom: 75,
+      fontFamily: 'roboto',
+      color: '#3b4a5b',
+      right: 20
     },
 
     tags: {
       position: 'absolute',
       bottom: 20,
-      left: 0
+      left: 15
     },
 
     itemText: {
@@ -70,6 +74,8 @@ export default StyleSheet.create({
       borderTopRightRadius: 10,
       borderWidth: 1,
       padding: 5,
+      fontFamily: 'roboto',
+      color: '#3b4a5b'
     },
 
     item: {

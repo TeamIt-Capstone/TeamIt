@@ -3,117 +3,102 @@ import userConstant from '../constants/userConstants'
 const initialState = {
     usersProjects: [
         { 
-            projectName: "Project 1", 
-            img: require("../../../assets/icon.png"), 
-            projectName: "project 1", 
-            domain: "tech 1", 
+            projectName: "Tassetee", 
+            img: require("../../../../assets/coffee.png"), 
+            projectName: "Tassetee", 
+            domain: "Web",
+            text: "You love coffee ? we love it too, join us and let's digitlize coffee",
             keyWords: [
                 { 
-                    key: 'a1' 
+                    key: 'Coffee' 
                 }, 
                 { 
-                    key: 'a2' 
+                    key: 'WebDev' 
                 }, 
                 { 
-                    key: 'a3' 
+                    key: 'Marketting' 
+                }, 
+            ] 
+        },
+        { 
+            projectName: "Techeeth", 
+            img: require("../../../../assets/teeth.png"), 
+            projectName: "Techeeth", 
+            domain: "Deep Learning", 
+            text: "You love teethes ? we love it too, join us and let's digitlize teeths",
+            keyWords: [
+                { 
+                    key: 'AI' 
                 }, 
                 { 
-                    key: 'a4' 
+                    key: 'Deeplearning' 
+                }, 
+                { 
+                    key: 'Software' 
                 },
             ] 
         },
         { 
-            projectName: "Project 2", 
-            img: require("../../../assets/icon.png"), 
-            projectName: "project 2", 
-            domain: "tech 2", 
+            projectName: "Autobots", 
+            img: require("../../../../assets/auto.png"), 
+            projectName: "Autobots", 
+            domain: "Web Mobile AI",
+            text: "You love cars ? we love it too, join us and let's digitlize cars arround the world",
             keyWords: [
                 { 
-                    key: 'b1' 
+                    key: 'NewTech' 
                 }, 
                 { 
-                    key: 'b2' 
-                }, 
-                { 
-                    key: 'b3' 
+                    key: 'Artificial intelligence' 
                 },
             ] 
         },
         { 
-            projectName: "Project 3", 
-            img: require("../../../assets/icon.png"), 
-            projectName: "project 3", 
-            domain: "tech 1", 
+            projectName: "Treelee", 
+            img: require("../../../../assets/tree.jpg"), 
+            projectName: "Treelee", 
+            domain: "Web",
+            text: "You love trees ? we too, join us and let's digitlize trees",
             keyWords: [
                 { 
-                    key: 'c1' 
+                    key: 'Web' 
                 }, 
                 { 
-                    key: 'c2' 
+                    key: 'Future' 
                 }, 
                 { 
-                    key: 'c3' 
-                }, 
-                { 
-                    key: 'c4' 
-                }, 
-                { 
-                    key: 'c5' 
+                    key: 'environment' 
                 },
             ] 
         },
         { 
-            projectName: "Project 4", 
-            img: require("../../../assets/icon.png"), 
-            projectName: "project 4", 
-            domain: "tech 1", 
+            projectName: "House care", 
+            img: require("../../../../assets/house.png"), 
+            projectName: "House", 
+            domain: "Mobile",
+            text: "You love your house ? we love it too, join us and let's digitlize your house",
             keyWords: [
                 { 
-                    key: 'd1' 
+                    key: 'Mobile' 
                 }, 
                 { 
-                    key: 'd2' 
-                }, 
-                { 
-                    key: 'd3' 
+                    key: 'Tech' 
                 },
             ] 
         },
         { 
-            projectName: "Project 5", 
-            img: require("../../../assets/icon.png"), 
-            projectName: "project 5", 
-            domain: "tech 1", 
+            projectName: "Todeliver", 
+            img: require("../../../../assets/plane.png"), 
+            projectName: "Todeliver", 
+            domain: "Mobile",
+            text: "You want deliver fast ? join us and let's deliver fast",
             keyWords: [
                 { 
-                    key: 'e1' 
+                    key: 'mobile' 
                 }, 
                 { 
-                    key: 'e2' 
-                },
-            ] 
-        },
-        { 
-            projectName: "Project 6", 
-            img: require("../../../assets/icon.png"), 
-            projectName: "project 6", 
-            domain: "tech 1", 
-            keyWords: [
-                { 
-                    key: 'f1' 
+                    key: 'mobile application' 
                 }, 
-                { 
-                    key: 'f2' 
-                }, 
-                { 
-                    key: 'f3' 
-                }, 
-                { 
-                    key: 'f4' 
-                }, 
-                { 
-                    key: 'f5' 
-                },
             ] 
         },       
     ],
