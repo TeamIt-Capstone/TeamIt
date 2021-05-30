@@ -6,19 +6,35 @@ import {
   Image,
   TouchableOpacity
 } from 'react-native';
+import { firebase } from '../../services/firebase'
+
+const actionCreators = {
+  downloadUser: userAction.handleDownloadUser,
+}
+
+connect(mapStateToProps, actionCreators);
+
 
 export default class Project extends Component {
+
+  async downloadImage();
+
+  componentDidMount() {​​​
+    this.downloadImage.then((res) =>this.setState({​​​profilePic:res}​​​));
+    this.getProfileByUid(uid).then((res) =>this.setState({​​​profile:res}​​​));
+
+}​​​
 
   render() {
     return (
       <View style={styles.container}>
           <View style={styles.header}></View>
-          <Image style={styles.avatar} source={{uri: 'https://www.goodfreephotos.com/albums/vector-images/diverse-group-of-students-working-on-project-vector-clipart.png'}}/>
+          <Image style={styles.avatar} source={{uri: this.state.profilePic}}/>
           <View style={styles.body}>
             <View style={styles.bodyContent}>  
-              <Text style={styles.name}>Alpha project</Text>
+              <Text style={styles.name}/*source={{uri: this.state.profile.encrypted.fullName}}*/>Alpha project</Text>
               
-              <Text style={styles.description}>Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum electram expetendis, omittam deseruisse consequuntur ius an,</Text>
+              <Text style={styles.description}/*source={{uri: this.state.profile.description}}}*/>Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum electram expetendis, omittam deseruisse consequuntur ius an,</Text>
 
               <TouchableOpacity style={styles.buttonContainer}>
                 <Text>Tech 1</Text>

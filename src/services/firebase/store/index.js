@@ -22,11 +22,14 @@ export default class Store {
 
     async getCollectionData() {
         const collectionSnapshot = await (await this.getCollectionReference()).get();
-        const res = new Map();
+        let res = {};
         collectionSnapshot.docs.forEach(doc => {
             const id = doc.id;
             const data = doc.data();
-            res.set(id, data);
+            res = {
+                ...res,
+                [id]: data,
+            }
         });
         return res;
     }

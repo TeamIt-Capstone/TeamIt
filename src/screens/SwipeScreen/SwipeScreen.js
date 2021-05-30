@@ -1,11 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import {Image, FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import styles from './styles';
-import { firebase } from '../../services/firebase'
 import SwipeCards from "react-native-swipe-cards-deck";
-import { formatData } from '../../services/formdata/formdata';
+import { formatData, filterProfiles, formateCardData } from '../../services/formdata/formdata';
+import { connect } from 'react-redux';
+import homeActions from '../../services/redux/actions/homeActions';
+import userActions from '../../services/redux/actions/userActions';
 
-export default class SwipeScreen extends React.Component {
+const actionCreators = {
+  update: homeActions.handleUpdateUsersList,
+  downloadUser: userActions.handleDownloadUser,
+  updateSeen: userActions.handleUpdateSeen,
+  updateMatchs: userActions.handleUpdateMatchs,
+  updateFavorites: userActions.handleUpdateFavorites,
+}
+
+function mapStateToProps(state) {
+  const {user, home, auth} = state;
+  return {user, home, auth};
+}
+
+
+export default connect(mapStateToProps, actionCreators)(
+  class SwipeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -14,26 +31,56 @@ export default class SwipeScreen extends React.Component {
             numColumns: 5,
         }
         this.cardsSetter = this.cardsSetter.bind(this);
+        this.handleNope = this.handleNope.bind(this);
+        this.handleYup = this.handleYup.bind(this);
+        this.handleMaybe = this.handleMaybe.bind(this);
       }
     
     cardsSetter(val) {
       this.setState({
         cards: val,
-
       })
     }
 
+    handleYup(card) {
+      const uid = this.props.auth.user.user.uid;
+
+      this.props.updateSeen(uid, card.id);
+      this.props.updateMatchs(uid, card.id);
+      return true; // return false if you wish to cancel the action
+    }
+    
+    handleNope(card) {
+      const uid = this.props.auth.user.user.uid;
+
+      this.props.updateSeen(uid, card.id);
+      return true;
+    }
+
+    handleMaybe(card)  {
+      const uid = this.props.auth.user.user.uid;
+
+      this.props.updateSeen(uid, card.id);
+      this.props.updateFavorites(uid, card.id);
+      return true;
+    }
+
     componentDidMount() {
-      this.cardsSetter(
-        [
-            { projectName: "Project 1", img: require("../../../assets/icon.png"), projectName: "project 1", domain: "tech 1", keyWords: [{ key: 'a1' }, { key: 'a2' }, { key: 'a3' }, { key: 'a4' },] },
-            { projectName: "Project 2", img: require("../../../assets/icon.png"), projectName: "project 2", domain: "tech 2", keyWords: [{ key: 'b1' }, { key: 'b2' }, { key: 'b3' },] },
-            { projectName: "Project 3", img: require("../../../assets/icon.png"), projectName: "project 3", domain: "tech 1", keyWords: [{ key: 'c1' }, { key: 'c2' }, { key: 'c3' }, { key: 'c4' }, { key: 'c5' },] },
-            { projectName: "Project 4", img: require("../../../assets/icon.png"), projectName: "project 4", domain: "tech 1", keyWords: [{ key: 'd1' }, { key: 'd2' }, { key: 'd3' },] },
-            { projectName: "Project 5", img: require("../../../assets/icon.png"), projectName: "project 5", domain: "tech 1", keyWords: [{ key: 'e1' }, { key: 'e2' },] },
-            { projectName: "Project 6", img: require("../../../assets/icon.png"), projectName: "project 6", domain: "tech 1", keyWords: [{ key: 'f1' }, { key: 'f2' }, { key: 'f3' }, { key: 'f4' }, { key: 'f5' },] },
-        ]);
+      const uid = this.props.auth.user.user.uid;
+      this.props.update();
+      this.props.downloadUser(uid);
     };
+
+    componentDidUpdate(prevProps, prevState) {
+      if (this.props !== prevProps) {
+        if (this.props.home.usersList && this.props.user.user) {
+          const uid = this.props.auth.user.user.uid;
+          const filteredProfiles = filterProfiles(this.props.home.usersList, this.props.user.user.seen, uid);
+          const formatedCardData = formateCardData(filteredProfiles);
+          this.cardsSetter(formatedCardData)
+        }
+      }
+    }
 
     renderItem({ item, index }) {
       if (item.empty === true) {
@@ -80,6 +127,7 @@ export default class SwipeScreen extends React.Component {
     }
 
     render() {
+      
         return (
         <View style={styles.container}>
         {this.state.cards ? (
@@ -88,14 +136,15 @@ export default class SwipeScreen extends React.Component {
             renderCard={(cardData) => <this.Card data={cardData} />}
             keyExtractor={(cardData) => String(cardData.text)}
             renderNoMoreCards={() => <StatusCard text="No more Projects..." />}
-            handleYup={handleYup}
-            handleNope={handleNope}
-            handleMaybe={handleMaybe}
-            showYup={true}
-            showNope={true}
+            handleYup={this.handleYup}
+            handleNope={this.handleNope}
+            handleMaybe={this.handleMaybe}
+            showMaybe={false}
+            showYup={false}
+            showNope={false}
             hasMaybeAction={true}
-             stack={true}
-             stackDepth={3}
+            stack={true}
+            stackDepth={3}
           />
         ) : (
           <StatusCard text="Loading..." />
@@ -103,21 +152,7 @@ export default class SwipeScreen extends React.Component {
       </View> 
         )
     }
-}
-
-function handleYup(card) {
-    console.log(`Yup for ${card.text}`);
-    return true; // return false if you wish to cancel the action
-}
-
-function handleNope(card) {
-    console.log(`Nope for ${card.text}`);
-    return true;
-  }
-function handleMaybe(card)  {
-    console.log(`Maybe for ${card.text}`);
-    return true;
-  }
+});
 
 function StatusCard({ text })  {
     return (

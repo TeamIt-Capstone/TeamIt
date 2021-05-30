@@ -6,19 +6,42 @@ import {
   Image,
   TouchableOpacity
 } from 'react-native';
+import userAction from '../../services/redux/actions/userActions'
+import {connect} from 'react-redux'
 
-export default class Profile extends Component {
+const actionCreators = {
+  update: userAction.handleUpdate,
+  downloadUser: userAction.handleDownloadUser,
+}
+
+function mapStateToProps(state) {
+  const {user, auth} = state;
+  return {user, auth};
+}
+
+export default connect(mapStateToProps, actionCreators)(
+class Profile extends Component {
+
+  componentDidMount() {
+    const uid = this.props.auth.user.user.uid;
+
+    this.props.downloadUser(uid);
+  }
 
   render() {
+    if (this.props.user.user) {
+      console.log(this.props.user.user.profile);
+    }
     return (
       <View style={styles.container}>
           <View style={styles.header}></View>
-          <Image style={styles.avatar} source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
+          {/* <Image style={styles.avatar} source={{uri: this.state.profilePic}}/> */}
           <View style={styles.body}>
             <View style={styles.bodyContent}>
-              <Text style={styles.name}>John Doe</Text>
-              <Text style={styles.info}>UX Designer / Mobile developer</Text>
-              <Text style={styles.description}>Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum electram expetendis, omittam deseruisse consequuntur ius an,</Text>
+              <Text style={styles.name} /*source={{uri: this.state.profile.encrypted.fullName}}*/>John Doe</Text>
+              <Text style={styles.info} /*source={{uri: this.state.profile.skills}}*/>UX Designer / Mobile developer</Text>
+              <Text style={styles.description}/*source={{uri: this.state.profile.description}}}*/>
+              Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum electram expetendis, omittam deseruisse consequuntur ius an</Text>
 
               <TouchableOpacity style={styles.buttonContainer}>
                 <Text>Tech 1</Text>
@@ -31,7 +54,7 @@ export default class Profile extends Component {
       </View>
     );
   }
-}
+})
 
 const styles = StyleSheet.create({
   header:{

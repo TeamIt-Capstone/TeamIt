@@ -32,16 +32,21 @@ export default class Auth {
             })
     }
 
-    async register(data) {
+    async register(data, navigation) {
         return auth.createUserWithEmailAndPassword(data.email, data.password)
-            .then((res) => {
+            .then(async (res) => {
                 const uid = res.user.uid
-                const user_data = userDefaultDataStructure;
+                
+                //create encrypted entity
                 const encrypted_data = userEncryptedDefaultDataStructure;
                 encrypted_data.fullName = data.fullName;
-                
-                db.user.setSingleUserById(uid, user_data);
                 db.user.setSingleUserEncryptedById(uid, encrypted_data);
+
+                //create and fill normal entity
+                const user_data = userDefaultDataStructure;
+                user_data.profile.encrypted = await db.user.getEncryptedUserDocumentReference(uid);
+                db.user.setSingleUserById(uid, user_data);
+                
                 navigation.navigate('SignIn');
             });
     }

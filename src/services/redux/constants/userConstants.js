@@ -11,8 +11,28 @@ const downloadUserConstant = {
     FAIL: 'DOWNLOAD_USER_FAIL'
 }
 
+const updateSeenConstants = {
+    REQUEST: 'UPDATE_SEEN_REQUEST',
+    SUCCESS: 'UPDATE_SEEN_SUCCESS',
+    FAIL: 'UPDATE_SEEN_FAIL'
+}
+
+const updateMatchsConstants = {
+    REQUEST: 'UPDATE_MATCHS_REQUEST',
+    SUCCESS: 'UPDATE_MATCHS_SUCCESS',
+    FAIL: 'UPDATE_MATCHS_FAIL'
+}
+
+const updateFavoritesConstants = {
+    REQUEST: 'UPDATE_FAVORITES_REQUEST',
+    SUCCESS: 'UPDATE_FAVORITES_SUCCESS',
+    FAIL: 'UPDATE_FAVORITES_FAIL'
+}
 
 export {
     updateConstant,
-    downloadUserConstant
+    downloadUserConstant,
+    updateSeenConstants,
+    updateMatchsConstants,
+    updateFavoritesConstants,
 };

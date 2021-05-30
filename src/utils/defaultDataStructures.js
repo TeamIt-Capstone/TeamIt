@@ -6,6 +6,7 @@ const userDefaultDataStructure = {
     },
     favorites: [],
     matchs: [],
+    seen: [],
     profile: {
         description: null,
         domains: [],

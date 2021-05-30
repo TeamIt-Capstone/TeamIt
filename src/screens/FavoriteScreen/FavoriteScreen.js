@@ -7,7 +7,6 @@ import {connect} from 'react-redux'
 import { BackgroundImage } from 'react-native-elements/dist/config'
 
 const actionCreators = {
-    update: userAction.handleUpdate,
     downloadUser: userAction.handleDownloadUser,
 }
 

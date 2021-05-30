@@ -39,7 +39,7 @@ export default connect(null, actionCreators)
             password: this.state.password,
             fullName: this.state.fullName
         }
-        this.props.register(data);
+        this.props.register(data, this.props.navigation);
     }
 
     

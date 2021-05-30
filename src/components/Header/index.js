@@ -4,7 +4,6 @@ import { Icon } from "react-native-elements";
 import style from "./style";
 
 export default function Header({navigation, scene, insets}) {
-    console.log(navigation);
     const containerStyle = {
         ...style.container,
         marginTop: insets.top

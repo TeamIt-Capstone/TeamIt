@@ -9,4 +9,33 @@ function formatData(data, numColumns) {
     return data;
 };
 
-export { formatData }
+function filterProfiles(usersList, seenList, localUid) {
+  let res = {};
+  for (const i in usersList) {
+    const user = usersList[i];
+    if (!seenList.includes(i) && i !== localUid) {
+      res = {
+        ...res,
+        [i]: user,
+      }
+    }
+  }
+  return res
+}
+
+function formateCardData(usersList) {
+  const res = [];
+  for (const i in usersList) {
+    const user = usersList[i];
+    res.push({
+      id: i,
+      projectName: "Project 1",
+      img: require("../../../assets/icon.png"),
+      domain: user.profile.domains[0],
+      keyWords: user.profile.skills
+    })
+  }
+  return res;
+}
+
+export { formatData, filterProfiles, formateCardData }

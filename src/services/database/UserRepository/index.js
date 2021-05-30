@@ -25,8 +25,21 @@ export default class UserRepository extends Repository {
         return this.db.users.setDocument(userId, data);
     }
 
+    
     async setSingleUserEncryptedById(userId, data) {
         return this.db.encrypted_users.setDocument(userId, data);
+    }
+
+    async getEncryptedUserDocumentReference(userId) {
+        return this.db.encrypted_users.getDocumentReference(userId);
+    }
+
+    async updateSingleUserById(userId, data) {
+        return this.db.users.updateDocument(userId, data);
+    }
+
+    async updateSingleUserEncryptedById(userId, data) {
+        return this.db.encrypted_users.updateDocument(userId, data);
     }
 
     async getUserProfileById(userId) {
