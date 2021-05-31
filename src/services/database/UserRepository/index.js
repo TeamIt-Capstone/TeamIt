@@ -14,11 +14,30 @@ export default class UserRepository extends Repository {
     }
 
     async getAllUsers() {
-        return this.db.users.getCollectionData();
+        const usersList = await this.db.users.getCollectionData()
+        let res = {}
+        for (const i in usersList) {
+            const user = usersList[i];
+            const decrypted = (await user.profile.encrypted.get()).data();
+            res = {
+                ...res,
+                [i]: {
+                    ...user,
+                    profile: {
+                        ...user.profile,
+                        'decrypted': decrypted,
+                    }
+                }
+            }
+        }
+        return res;
     }
 
     async getSingleUserById(userId) {
-        return this.db.users.getDocumentData(userId);
+        const data = await this.db.users.getDocumentData(userId);
+        const encrypted = (await data.profile.encrypted.get()).data();
+        data.profile.decrypted = encrypted;
+        return data;
     }
 
     async setSingleUserById(userId, data) {
@@ -55,9 +74,12 @@ export default class UserRepository extends Repository {
     }
 
     async getProfilePicByUserId(userId) {
-        const profilePicId = await (this.getUserProfileById(userId)).profilePicId;
-
-        return this.storage.getDownloadUrl(`${userId}/${profilePicId}`);
+        try {
+            return await this.storage.getDownloadUrl(`Users/${userId}/profile.jpg`);
+        } catch (err) {
+            console.log(err);
+            return null;
+        }
     }
 
 

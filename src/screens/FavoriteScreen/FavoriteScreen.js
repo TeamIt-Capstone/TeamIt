@@ -43,7 +43,6 @@ export default connect(mapStateToProps, actionCreators)
           if (this.props.home.usersList && this.props.user.user) {
             const uid = this.props.auth.user.user.uid;
             const formatedFavorites = formateFavoriteData(this.props.user.user.favorites, this.props.home.usersList);
-            console.log(formatedFavorites);
             this.setState({
                 oldList: (this.props.user.user.favorites) ? formatedFavorites.slice() : []
             });

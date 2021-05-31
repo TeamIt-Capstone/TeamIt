@@ -230,7 +230,6 @@ export default function updateReducer(state = initialState, action) {
                 requesting: true,
             };
         case (updateSeenConstants.SUCCESS):
-            console.log(action.data);
             return {
                 ...state,
                 user: {
@@ -252,7 +251,6 @@ export default function updateReducer(state = initialState, action) {
                 requesting: true,
             };
         case (updateMatchsConstants.SUCCESS):
-            console.log(action.data);
             return {
                 ...state,
                 user: {
@@ -274,7 +272,6 @@ export default function updateReducer(state = initialState, action) {
                 requesting: true,
             };
         case (updateFavoritesConstants.SUCCESS):
-            console.log(action.data);
             return {
                 ...state,
                 user: {

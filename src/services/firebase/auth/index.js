@@ -40,6 +40,7 @@ export default class Auth {
                 //create encrypted entity
                 const encrypted_data = userEncryptedDefaultDataStructure;
                 encrypted_data.fullName = data.fullName;
+                encrypted_data.email = data.email;
                 db.user.setSingleUserEncryptedById(uid, encrypted_data);
 
                 //create and fill normal entity
@@ -47,7 +48,7 @@ export default class Auth {
                 user_data.profile.encrypted = await db.user.getEncryptedUserDocumentReference(uid);
                 db.user.setSingleUserById(uid, user_data);
                 
-                navigation.navigate('SignIn');
+                // navigation.navigate('SignIn');
             });
     }
 }

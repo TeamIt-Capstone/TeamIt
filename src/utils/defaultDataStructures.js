@@ -25,6 +25,7 @@ const userDefaultDataStructure = {
 
 const userEncryptedDefaultDataStructure = {
     fullName: null,
+    email: null,
 }
 
 export {

@@ -74,5 +74,13 @@ export default StyleSheet.create({
 
     item: {
       padding: 3,
+    },
+
+    iconStyle: {
+      
+    },
+
+    containerStyle: {
+
     }
   });

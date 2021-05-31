@@ -6,6 +6,7 @@ import { formatData, filterProfiles, formateCardData } from '../../services/form
 import { connect } from 'react-redux';
 import homeActions from '../../services/redux/actions/homeActions';
 import userActions from '../../services/redux/actions/userActions';
+import {Icon} from 'react-native-elements'
 
 const actionCreators = {
   update: homeActions.handleUpdateUsersList,
@@ -47,8 +48,11 @@ export default connect(mapStateToProps, actionCreators)(
           if (this.props.home.usersList && this.props.user.user) {
             const uid = this.props.auth.user.user.uid;
             const filteredProfiles = filterProfiles(this.props.home.usersList, this.props.user.user.seen, uid);
-            const formatedCardData = formateCardData(filteredProfiles);
-            this.cardsSetter(formatedCardData)
+            formateCardData(filteredProfiles).then(res => {
+              console.log(res);
+              this.cardsSetter(res)
+            }
+            );
           }
         }
       }
@@ -128,25 +132,52 @@ export default connect(mapStateToProps, actionCreators)(
     }
 
     render() {
-      
+      console.log(this.state.cards)
         return (
         <View style={styles.container}>
         {this.state.cards ? (
-          <SwipeCards
-            cards={this.state.cards}
-            renderCard={(cardData) => <this.Card data={cardData} />}
-            keyExtractor={(cardData) => String(cardData.text)}
-            renderNoMoreCards={() => <StatusCard text="No more Projects..." />}
-            handleYup={this.handleYup}
-            handleNope={this.handleNope}
-            handleMaybe={this.handleMaybe}
-            showMaybe={false}
-            showYup={false}
-            showNope={false}
-            hasMaybeAction={true}
-            stack={true}
-            stackDepth={3}
-          />
+            <SwipeCards
+              cards={this.state.cards}
+              renderCard={(cardData) => <this.Card data={cardData} />}
+              keyExtractor={(cardData) => String(cardData.text)}
+              renderNoMoreCards={() => <StatusCard text="No more Projects..." />}
+              yupView={
+                <Icon
+                  name='check'
+                  type="feather"
+                  color={"#2BD999"}
+                  iconStyle={styles.iconStyle}
+                  containerStyle={styles.containerStyle}
+                />
+              }
+              maybeView={
+                <Icon
+                  name='star'
+                  type="feather"
+                  color={"#2BD999"}
+                  iconStyle={styles.iconStyle}
+                  containerStyle={styles.containerStyle}
+                />
+              }
+              nopeView={
+                <Icon
+                  name='x'
+                  type="feather"
+                  color={"#2BD999"}
+                  iconStyle={styles.iconStyle}
+                  containerStyle={styles.containerStyle}
+                />
+              }
+              handleYup={this.handleYup}
+              handleNope={this.handleNope}
+              handleMaybe={this.handleMaybe}
+              showMaybe={true}
+              showYup={true}
+              showNope={true}
+              hasMaybeAction={true}
+              stack={true}
+              stackDepth={3}
+            />
         ) : (
           <StatusCard text="Loading..." />
         )}

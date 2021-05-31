@@ -9,7 +9,8 @@ export default class Storage {
     }
 
     async getDownloadUrl(path) {
-        const ref = storage.ref(`${this.rootPath}${path}`);
+        // const ref = storage.ref(`${this.rootPath}${path}`);
+        const ref = storage.ref(`${path}`);
         return ref.getDownloadURL();
     }
 }

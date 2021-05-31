@@ -1,10 +1,9 @@
-import HomeScreen from '../screens/HomeScreen/HomeScreen'
+import React from 'react'
 import RegistrationScreen from '../screens/RegistrationScreen/RegistrationScreen'
 import LoginScreen from '../screens/LoginScreen/LoginScreen'
 import PricingScreen from '../screens/PricingScreen/PricingScreen'
 import SubscriptionOptionScreen from '../screens/PricingScreen/SubscriptionOptionScreen'
 import FavoriteScreen from '../screens/FavoriteScreen/FavoriteScreen'
-import React, {useState, useEffect, Profiler} from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import {decode, encode} from 'base-64'
@@ -12,10 +11,11 @@ if (!global.btoa) {  global.btoa = encode }
 if (!global.atob) { global.atob = decode }
 import authAction from '../services/redux/actions/authActions'
 import {connect} from 'react-redux'
-import {View} from 'react-native'
 import Header from '../components/Header'
 import Profile from './ProfileScreen'
 import SwipeScreen from '../screens/SwipeScreen/SwipeScreen'
+import userAction from '../services/redux/actions/userActions'
+import MatchsScreen from './MatchsScreen'
 
 const navigationOption = {
     header: (props) => <Header {...props}/>
@@ -25,6 +25,7 @@ const Stack = createStackNavigator();
 
 const actionCreators = {
     login: authAction.handleLogin,
+    update: userAction.handleDownloadUser,
 }
 
 function mapStateToProps(state) {
@@ -36,7 +37,7 @@ export default connect(mapStateToProps, actionCreators)
 (function Screens(props) {
 
     if (props.auth.user) {
-        console.log('download data');
+        props.update(props.auth.user.user.uid);
     }
 
     return (
@@ -51,6 +52,7 @@ export default connect(mapStateToProps, actionCreators)
                     <Stack.Screen name="SubscriptionOption" component={SubscriptionOptionScreen} options={navigationOption}/>
                     <Stack.Screen name="Favorite" component={FavoriteScreen} options={navigationOption}/>
                     <Stack.Screen name="Profile" component={Profile} options={navigationOption}/>
+                    <Stack.Screen name="Matchs" component={MatchsScreen} options={navigationOption}/>
                 </>
                 ) : (
                 <>
@@ -60,6 +62,7 @@ export default connect(mapStateToProps, actionCreators)
                     <Stack.Screen name="SubscriptionOption" component={SubscriptionOptionScreen} />
                     <Stack.Screen name="Favorite" component={FavoriteScreen} />
                     <Stack.Screen name="Profile" component={Profile}/>
+                    <Stack.Screen name="Matchs" component={MatchsScreen}/>
                 </>
                 )}
             </Stack.Navigator>
